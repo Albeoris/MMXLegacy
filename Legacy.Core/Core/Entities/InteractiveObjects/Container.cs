@@ -137,10 +137,7 @@ namespace Legacy.Core.Entities.InteractiveObjects
 			{
 			case EInteractiveObjectData.CONTAINER_ITEM:
 			{
-				String[] array = p_value.Split(new Char[]
-				{
-					','
-				});
+				String[] array = p_value.Split(',');
 				EDataType edataType = (EDataType)Enum.Parse(typeof(EDataType), array[0]);
 				Int32 p_staticID = Convert.ToInt32(array[1]);
 				BaseItem baseItem = ItemFactory.CreateItem(edataType, p_staticID);

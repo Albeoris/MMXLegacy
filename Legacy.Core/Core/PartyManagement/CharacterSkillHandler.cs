@@ -262,7 +262,7 @@ namespace Legacy.Core.PartyManagement
 		{
 			Int32 requiredSkillID = GetRequiredSkillID(p_equip);
 			ETier p_skillTier = GetRequiredSkillTier(p_equip);
-			Int32 num = 0;
+			Int32 skillId = 0;
 			MeleeWeapon meleeWeapon = p_equip as MeleeWeapon;
 			if (meleeWeapon != null)
 			{
@@ -270,12 +270,12 @@ namespace Legacy.Core.PartyManagement
 				{
 					if (meleeWeapon.GetWeaponType() != EEquipmentType.SPEAR)
 					{
-						num = 8;
+						skillId = 8;
 					}
 				}
 				else if (p_slot == EEquipSlots.OFF_HAND)
 				{
-					num = 10;
+					skillId = 10;
 				}
 			}
 			MagicFocus magicFocus = p_equip as MagicFocus;
@@ -283,10 +283,10 @@ namespace Legacy.Core.PartyManagement
 			{
 				p_skillTier = ETier.MASTER;
 			}
-			return (requiredSkillID == 0 || HasRequiredSkillTier(requiredSkillID, p_skillTier)) && (num == 0 || HasRequiredSkillTier(num, ETier.NOVICE));
+			return (requiredSkillID == 0 || HasRequiredSkillTier(requiredSkillID, p_skillTier)) && (skillId == 0 || HasRequiredSkillTier(skillId, ETier.NOVICE));
 		}
 
-		private ETier GetRequiredSkillTier(BaseItem p_equip)
+		public static ETier GetRequiredSkillTier(BaseItem p_equip)
 		{
 			ISkillDependant skillDependant = p_equip as ISkillDependant;
 			if (skillDependant != null)
@@ -1007,7 +1007,7 @@ namespace Legacy.Core.PartyManagement
 			}
 		}
 
-		private static Int32 GetRequiredSkillID(BaseItem p_equip)
+		public static Int32 GetRequiredSkillID(BaseItem p_equip)
 		{
 			ISkillDependant skillDependant = p_equip as ISkillDependant;
 			if (skillDependant != null)

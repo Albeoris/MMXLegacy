@@ -81,7 +81,9 @@ namespace Legacy.Core.Configuration
 
 		public Single RangedAttackMeleeMalus = 0.5f;
 
-		public Int32 HoursDeficiencySyndromesRest = 30;
+	    public Int32 GenerateCompatibleEquipmentRetriesNumber = 0;
+
+        public Int32 HoursDeficiencySyndromesRest = 30;
 
 		public Int32 MinutesDeficiencySyndromesTick = 5;
 
@@ -259,122 +261,147 @@ namespace Legacy.Core.Configuration
 
 		public Boolean EnableRendezVousLogging;
 
-		public void Load(FileStream p_stream)
-		{
-			ConfigReader configReader = new ConfigReader();
-			configReader.ReadData(p_stream);
-			MapStart = configReader["map"]["start"].GetString();
-			MapAfterEndingSequences = configReader["map"]["afterEndingSequences"].GetString();
-			SpawnerAfterEndingSequences = configReader["map"]["spawnerEndingSequences"].GetInt();
-			MonsterSpawnRange = configReader["grid"]["monsterSpawnRange"].GetInt();
-			MonsterVisibilityRange = configReader["grid"]["monsterVisibilityRange"].GetInt();
-			MonsterVisibilityRangeWithDangerSense = configReader["grid"]["monsterVisibilityRangeWithDangerSense"].GetInt();
-			DawnStartHours = configReader["gametime"]["dawnStartHours"].GetInt();
-			DayStartHours = configReader["gametime"]["dayStartHours"].GetInt();
-			NightStartHours = configReader["gametime"]["nightStartHours"].GetInt();
-			DuskStartHours = configReader["gametime"]["duskStartHours"].GetInt();
-			MinutesPerTurnOutdoor = configReader["gametime"]["minutesPerTurnOutdoor"].GetInt();
-			MinutesPerTurnCity = configReader["gametime"]["minutesPerTurnCity"].GetInt();
-			MinutesPerTurnDungeon = configReader["gametime"]["minutesPerTurnDungeon"].GetInt();
-			MinutesPerRest = configReader["gametime"]["minutesPerRest"].GetInt();
-			MaxLevel = configReader["gameplay"]["maxLevel"].GetInt();
-			InventorySize = configReader["gameplay"]["inventorySize"].GetInt();
-			RewardXpMultiplier = configReader["gameplay"]["rewardXpMultiplier"].GetFloat();
-			ActionLogMaxEntries = configReader["gameplay"]["actionLogMaxEntries"].GetInt();
-			StartSupplies = configReader["gameplay"]["startSupplies"].GetInt();
-			ExploreRange = configReader["gameplay"]["exploreRange"].GetInt();
-			BrokenItemMalusNormal = configReader["gameplay"]["brokenItemMalusNormal"].GetFloat();
-			BrokenItemMalusHard = configReader["gameplay"]["brokenItemMalusHard"].GetFloat();
-			ItemPriceBrokenOrUnidentified = configReader["gameplay"]["itemPriceBrokenOrUnidentified"].GetInt();
-			ResistancePerBlessing = configReader["gameplay"]["resistancePerBlessing"].GetInt();
-			ItemResellMultiplicator = configReader["gameplay"]["itemResellMultiplicator"].GetFloat();
-			ScrollNoviceMagicFactor = configReader["gameplay"]["scrollNoviceMagicFactor"].GetFloat();
-			ScrollExpertMagicFactor = configReader["gameplay"]["scrollExpertMagicFactor"].GetFloat();
-			ScrollMasterMagicFactor = configReader["gameplay"]["scrollMasterMagicFactor"].GetFloat();
-			ScrollGrandmasterMagicFactor = configReader["gameplay"]["scrollGrandmasterMagicFactor"].GetFloat();
-			RangedAttackMeleeMalus = configReader["gameplay"]["rangedAttackMeleeMalus"].GetFloat();
-			HoursDeficiencySyndromesRest = configReader["conditions"]["hoursDeficiencySyndromesRest"].GetInt();
-			MinutesDeficiencySyndromesTick = configReader["conditions"]["minutesDeficiencySyndromesTick"].GetInt();
-			PoisonEvadeDecrease = configReader["conditions"]["poisonEvadeDecrease"].GetFloat();
-			PoisonHealthDamage = configReader["conditions"]["poisonHealthDamage"].GetFloat();
-			SleepingWakeupDamage = configReader["conditions"]["sleepingWakeupDamage"].GetFloat();
-			CursedAttribDecrease = configReader["conditions"]["cursedAttribDecrease"].GetFloat();
-			CursedAttackDecrease = configReader["conditions"]["cursedAttackDecrease"].GetFloat();
-			WeakAttribDecrease = configReader["conditions"]["weakAttribDecrease"].GetFloat();
-			KnockedOutTurnCount = configReader["conditions"]["knockedOutTurnCount"].GetInt();
-			CantDoAnythingTurnCount = configReader["conditions"]["cantDoAnythingTurnCount"].GetInt();
-			DeadBaseValue = configReader["conditions"]["deadBaseValue"].GetInt();
-			DeadVitalityMultiplicator = configReader["conditions"]["deadVitalityMultiplicator"].GetInt();
-			SkillPointsPerLevelUp = configReader["skills"]["skillPointsPerLevelUp"].GetInt();
-			AttributePointsPerLevelUp = configReader["skills"]["attributePointsPerLevelUp"].GetInt();
-			RequiredSkillLevelNovice = configReader["skills"]["requiredSkillLevelNovice"].GetInt();
-			RequiredSkillLevelExpert = configReader["skills"]["requiredSkillLevelExpert"].GetInt();
-			RequiredSkillLevelMaster = configReader["skills"]["requiredSkillLevelMaster"].GetInt();
-			RequiredSkillLevelGrandMaster = configReader["skills"]["requiredSkillLevelGrandMaster"].GetInt();
-			SkillExpertPrice = configReader["skills"]["skillExpertPrice"].GetInt();
-			SkillMasterPrice = configReader["skills"]["skillMasterPrice"].GetInt();
-			SkillGrandmasterPrice = configReader["skills"]["skillGrandmasterPrice"].GetInt();
-			PartyMembers = configReader["party"]["members"].GetIntArray();
-			HealthPerMight = configReader["party"]["healthPerMight"].GetFloat();
-			HealthPerVitality = configReader["party"]["healthPerVitality"].GetFloat();
-			ManaPerMagic = configReader["party"]["manaPerMagic"].GetFloat();
-			ManaPerSpirit = configReader["party"]["manaPerSpirit"].GetFloat();
-			MainHandAttackValue = configReader["combat"]["mainHandAttackValue"].GetFloat();
-			OffHandAttackValue = configReader["combat"]["offHandAttackValue"].GetFloat();
-			RangeHandAttackValue = configReader["combat"]["rangeAttackValue"].GetFloat();
-			MainHandDamage = configReader["combat"]["mainHandDamage"].GetFloat();
-			RangedDamage = configReader["combat"]["rangedDamage"].GetFloat();
-			MagicDamage = configReader["combat"]["magicDamage"].GetFloat();
-			OffHandDamage = configReader["combat"]["offHandDamage"].GetFloat();
-			MainHandCritChanceDestinyMod = configReader["combat"]["mainHandCritChanceDestinyMod"].GetFloat();
-			OffHandCritChanceDestinyMod = configReader["combat"]["offHandCritChanceDestinyMod"].GetFloat();
-			RangedCriticalHitDestinyMod = configReader["combat"]["rangedCritChanceDestinyMod"].GetFloat();
-			AttackValuePenaltiesLightArmor = configReader["combat"]["attackValuePenaltiesLightArmor"].GetIntArray();
-			AttackValuePenaltiesHeavyArmor = configReader["combat"]["attackValuePenaltiesHeavyArmor"].GetIntArray();
-			DefendEvadeBonus = configReader["combat"]["defendEvadeBonus"].GetFloat();
-			DefendBlockBonus = configReader["combat"]["defendBlockBonus"].GetFloat();
-			MagicCritChance = configReader["combat"]["magicCritChance"].GetFloat();
-			MagicCritFactor = configReader["combat"]["magicCritFactor"].GetFloat();
-			MonsterCastChance = configReader["combat"]["monsterCastChance"].GetInt();
-			EvadeFactor = configReader["combat"]["evadeFactor"].GetFloat();
-			MagicEvadeFactor = configReader["combat"]["magicEvadeFactor"].GetFloat();
-			TradingInventorySize = configReader["npc"]["tradingInventorySize"].GetInt();
-			CostCast = configReader["npc"]["costCast"].GetInt();
-			CostCure = configReader["npc"]["costCure"].GetInt();
-			CostIdentify = configReader["npc"]["costIdentify"].GetInt();
-			CostRepair = configReader["npc"]["costRepair"].GetInt();
-			CostRest = configReader["npc"]["costRest"].GetInt();
-			CostRestoration = configReader["npc"]["costRestoration"].GetInt();
-			CostResurrect = configReader["npc"]["costResurrect"].GetInt();
-			CostTravel = configReader["npc"]["costTravel"].GetInt();
-			CostSupplies = configReader["npc"]["costSupplies"].GetInt();
-			CostRespec = configReader["npc"]["costRespec"].GetInt();
-			HirelingBlockChance = configReader["npc"]["hirelingBlockChance"].GetFloat();
-			HirelingGoldShareFactor = configReader["pricing"]["hirelingGoldShareFactor"].GetFloat();
-			ItemSpellsFactor = configReader["warriorMode"]["itemSpellsFactor"].GetFloat();
-			ItemConsumablesFactor = configReader["warriorMode"]["itemConsumablesFactor"].GetFloat();
-			ItemEquipmentFactor = configReader["warriorMode"]["itemEquipmentFactor"].GetFloat();
-			NpcSuppliesFactor = configReader["warriorMode"]["npcSuppliesFactor"].GetFloat();
-			NpcItemRepairFactor = configReader["warriorMode"]["npcItemRepairFactor"].GetFloat();
-			NpcItemIdentifyFactor = configReader["warriorMode"]["npcItemIdentifyFactor"].GetFloat();
-			NpcRestoreFactor = configReader["warriorMode"]["npcRestoreFactor"].GetFloat();
-			NpcResurrectFactor = configReader["warriorMode"]["npcResurrectFactor"].GetFloat();
-			NpcCureFactor = configReader["warriorMode"]["npcCureFactor"].GetFloat();
-			NpcRestFactor = configReader["warriorMode"]["npcRestFactor"].GetFloat();
-			NpcSkillTrainingFactor = configReader["warriorMode"]["npcSkillTrainingFactor"].GetFloat();
-			NpcClassPromotionFactor = configReader["warriorMode"]["npcClassPromotionFactor"].GetFloat();
-			NpcTravelFactor = configReader["warriorMode"]["npcTravelFactor"].GetFloat();
-			NpcHirelingCostsFactor = configReader["warriorMode"]["npcHirelingCostsFactor"].GetFloat();
-			NpcRespecFactor = configReader["warriorMode"]["npcRespecFactor"].GetFloat();
-			MonsterHealthCoreFactor = configReader["warriorMode"]["monsterHealthCoreFactor"].GetFloat();
-			MonsterHealthEliteFactor = configReader["warriorMode"]["monsterHealthEliteFactor"].GetFloat();
-			MonsterHealthChampionFactor = configReader["warriorMode"]["monsterHealthChampionFactor"].GetFloat();
-			ItemResellMultiplicatorHard = configReader["warriorMode"]["itemResellMultiplicatorHard"].GetFloat();
-			DamageReceiveFactor = configReader["warriorMode"]["damageReceiveFactor"].GetFloat();
-			EnableRendezVousLogging = configReader["online"]["enableRendezVousLogging"].GetBool();
-		}
+	    public void Load(FileStream p_stream)
+	    {
+	        ConfigReader configReader = new ConfigReader();
+	        configReader.ReadData(p_stream);
 
-		public void Write(FileStream p_stream)
+	        var map = configReader["map"];
+	        MapStart = map["start"].GetString();
+	        MapAfterEndingSequences = map["afterEndingSequences"].GetString();
+	        SpawnerAfterEndingSequences = map["spawnerEndingSequences"].GetInt();
+
+	        var grid = configReader["grid"];
+	        MonsterSpawnRange = grid["monsterSpawnRange"].GetInt();
+	        MonsterVisibilityRange = grid["monsterVisibilityRange"].GetInt();
+	        MonsterVisibilityRangeWithDangerSense = grid["monsterVisibilityRangeWithDangerSense"].GetInt();
+
+	        var gameTime = configReader["gametime"];
+	        DawnStartHours = gameTime["dawnStartHours"].GetInt();
+	        DayStartHours = gameTime["dayStartHours"].GetInt();
+	        NightStartHours = gameTime["nightStartHours"].GetInt();
+	        DuskStartHours = gameTime["duskStartHours"].GetInt();
+	        MinutesPerTurnOutdoor = gameTime["minutesPerTurnOutdoor"].GetInt();
+	        MinutesPerTurnCity = gameTime["minutesPerTurnCity"].GetInt();
+	        MinutesPerTurnDungeon = gameTime["minutesPerTurnDungeon"].GetInt();
+	        MinutesPerRest = gameTime["minutesPerRest"].GetInt();
+
+	        var gamePlay = configReader["gameplay"];
+	        MaxLevel = gamePlay["maxLevel"].GetInt();
+	        InventorySize = gamePlay["inventorySize"].GetInt();
+	        RewardXpMultiplier = gamePlay["rewardXpMultiplier"].GetFloat();
+	        ActionLogMaxEntries = gamePlay["actionLogMaxEntries"].GetInt();
+	        StartSupplies = gamePlay["startSupplies"].GetInt();
+	        ExploreRange = gamePlay["exploreRange"].GetInt();
+	        BrokenItemMalusNormal = gamePlay["brokenItemMalusNormal"].GetFloat();
+	        BrokenItemMalusHard = gamePlay["brokenItemMalusHard"].GetFloat();
+	        ItemPriceBrokenOrUnidentified = gamePlay["itemPriceBrokenOrUnidentified"].GetInt();
+	        ResistancePerBlessing = gamePlay["resistancePerBlessing"].GetInt();
+	        ItemResellMultiplicator = gamePlay["itemResellMultiplicator"].GetFloat();
+	        ScrollNoviceMagicFactor = gamePlay["scrollNoviceMagicFactor"].GetFloat();
+	        ScrollExpertMagicFactor = gamePlay["scrollExpertMagicFactor"].GetFloat();
+	        ScrollMasterMagicFactor = gamePlay["scrollMasterMagicFactor"].GetFloat();
+	        ScrollGrandmasterMagicFactor = gamePlay["scrollGrandmasterMagicFactor"].GetFloat();
+	        RangedAttackMeleeMalus = gamePlay["rangedAttackMeleeMalus"].GetFloat();
+	        GenerateCompatibleEquipmentRetriesNumber = gamePlay[nameof(GenerateCompatibleEquipmentRetriesNumber)].GetInt(GenerateCompatibleEquipmentRetriesNumber);
+
+	        var conditions = configReader["conditions"];
+	        HoursDeficiencySyndromesRest = conditions["hoursDeficiencySyndromesRest"].GetInt();
+	        MinutesDeficiencySyndromesTick = conditions["minutesDeficiencySyndromesTick"].GetInt();
+	        PoisonEvadeDecrease = conditions["poisonEvadeDecrease"].GetFloat();
+	        PoisonHealthDamage = conditions["poisonHealthDamage"].GetFloat();
+	        SleepingWakeupDamage = conditions["sleepingWakeupDamage"].GetFloat();
+	        CursedAttribDecrease = conditions["cursedAttribDecrease"].GetFloat();
+	        CursedAttackDecrease = conditions["cursedAttackDecrease"].GetFloat();
+	        WeakAttribDecrease = conditions["weakAttribDecrease"].GetFloat();
+	        KnockedOutTurnCount = conditions["knockedOutTurnCount"].GetInt();
+	        CantDoAnythingTurnCount = conditions["cantDoAnythingTurnCount"].GetInt();
+	        DeadBaseValue = conditions["deadBaseValue"].GetInt();
+	        DeadVitalityMultiplicator = conditions["deadVitalityMultiplicator"].GetInt();
+
+	        var skills = configReader["skills"];
+	        SkillPointsPerLevelUp = skills["skillPointsPerLevelUp"].GetInt();
+	        AttributePointsPerLevelUp = skills["attributePointsPerLevelUp"].GetInt();
+	        RequiredSkillLevelNovice = skills["requiredSkillLevelNovice"].GetInt();
+	        RequiredSkillLevelExpert = skills["requiredSkillLevelExpert"].GetInt();
+	        RequiredSkillLevelMaster = skills["requiredSkillLevelMaster"].GetInt();
+	        RequiredSkillLevelGrandMaster = skills["requiredSkillLevelGrandMaster"].GetInt();
+	        SkillExpertPrice = skills["skillExpertPrice"].GetInt();
+	        SkillMasterPrice = skills["skillMasterPrice"].GetInt();
+	        SkillGrandmasterPrice = skills["skillGrandmasterPrice"].GetInt();
+
+	        var party = configReader["party"];
+	        PartyMembers = party["members"].GetIntArray();
+	        HealthPerMight = party["healthPerMight"].GetFloat();
+	        HealthPerVitality = party["healthPerVitality"].GetFloat();
+	        ManaPerMagic = party["manaPerMagic"].GetFloat();
+	        ManaPerSpirit = party["manaPerSpirit"].GetFloat();
+
+	        var combat = configReader["combat"];
+	        MainHandAttackValue = combat["mainHandAttackValue"].GetFloat();
+	        OffHandAttackValue = combat["offHandAttackValue"].GetFloat();
+	        RangeHandAttackValue = combat["rangeAttackValue"].GetFloat();
+	        MainHandDamage = combat["mainHandDamage"].GetFloat();
+	        RangedDamage = combat["rangedDamage"].GetFloat();
+	        MagicDamage = combat["magicDamage"].GetFloat();
+	        OffHandDamage = combat["offHandDamage"].GetFloat();
+	        MainHandCritChanceDestinyMod = combat["mainHandCritChanceDestinyMod"].GetFloat();
+	        OffHandCritChanceDestinyMod = combat["offHandCritChanceDestinyMod"].GetFloat();
+	        RangedCriticalHitDestinyMod = combat["rangedCritChanceDestinyMod"].GetFloat();
+	        AttackValuePenaltiesLightArmor = combat["attackValuePenaltiesLightArmor"].GetIntArray();
+	        AttackValuePenaltiesHeavyArmor = combat["attackValuePenaltiesHeavyArmor"].GetIntArray();
+	        DefendEvadeBonus = combat["defendEvadeBonus"].GetFloat();
+	        DefendBlockBonus = combat["defendBlockBonus"].GetFloat();
+	        MagicCritChance = combat["magicCritChance"].GetFloat();
+	        MagicCritFactor = combat["magicCritFactor"].GetFloat();
+	        MonsterCastChance = combat["monsterCastChance"].GetInt();
+	        EvadeFactor = combat["evadeFactor"].GetFloat();
+	        MagicEvadeFactor = combat["magicEvadeFactor"].GetFloat();
+
+	        var npc = configReader["npc"];
+	        TradingInventorySize = npc["tradingInventorySize"].GetInt();
+	        CostCast = npc["costCast"].GetInt();
+	        CostCure = npc["costCure"].GetInt();
+	        CostIdentify = npc["costIdentify"].GetInt();
+	        CostRepair = npc["costRepair"].GetInt();
+	        CostRest = npc["costRest"].GetInt();
+	        CostRestoration = npc["costRestoration"].GetInt();
+	        CostResurrect = npc["costResurrect"].GetInt();
+	        CostTravel = npc["costTravel"].GetInt();
+	        CostSupplies = npc["costSupplies"].GetInt();
+	        CostRespec = npc["costRespec"].GetInt();
+	        HirelingBlockChance = npc["hirelingBlockChance"].GetFloat();
+
+	        var pricing = configReader["pricing"];
+	        HirelingGoldShareFactor = pricing["hirelingGoldShareFactor"].GetFloat();
+
+	        var warriorMode = configReader["warriorMode"];
+	        ItemSpellsFactor = warriorMode["itemSpellsFactor"].GetFloat();
+	        ItemConsumablesFactor = warriorMode["itemConsumablesFactor"].GetFloat();
+	        ItemEquipmentFactor = warriorMode["itemEquipmentFactor"].GetFloat();
+	        NpcSuppliesFactor = warriorMode["npcSuppliesFactor"].GetFloat();
+	        NpcItemRepairFactor = warriorMode["npcItemRepairFactor"].GetFloat();
+	        NpcItemIdentifyFactor = warriorMode["npcItemIdentifyFactor"].GetFloat();
+	        NpcRestoreFactor = warriorMode["npcRestoreFactor"].GetFloat();
+	        NpcResurrectFactor = warriorMode["npcResurrectFactor"].GetFloat();
+	        NpcCureFactor = warriorMode["npcCureFactor"].GetFloat();
+	        NpcRestFactor = warriorMode["npcRestFactor"].GetFloat();
+	        NpcSkillTrainingFactor = warriorMode["npcSkillTrainingFactor"].GetFloat();
+	        NpcClassPromotionFactor = warriorMode["npcClassPromotionFactor"].GetFloat();
+	        NpcTravelFactor = warriorMode["npcTravelFactor"].GetFloat();
+	        NpcHirelingCostsFactor = warriorMode["npcHirelingCostsFactor"].GetFloat();
+	        NpcRespecFactor = warriorMode["npcRespecFactor"].GetFloat();
+	        MonsterHealthCoreFactor = warriorMode["monsterHealthCoreFactor"].GetFloat();
+	        MonsterHealthEliteFactor = warriorMode["monsterHealthEliteFactor"].GetFloat();
+	        MonsterHealthChampionFactor = warriorMode["monsterHealthChampionFactor"].GetFloat();
+	        ItemResellMultiplicatorHard = warriorMode["itemResellMultiplicatorHard"].GetFloat();
+	        DamageReceiveFactor = warriorMode["damageReceiveFactor"].GetFloat();
+
+	        var online = configReader["online"];
+	        EnableRendezVousLogging = online["enableRendezVousLogging"].GetBool();
+	    }
+
+	    public void Write(FileStream p_stream)
 		{
 		}
 	}

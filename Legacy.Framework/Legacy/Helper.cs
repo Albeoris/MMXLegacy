@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using Legacy.Core.Map;
 using Legacy.Utilities;
 using UnityEngine;
-using Object = System.Object;
 
 namespace Legacy
 {
@@ -149,7 +148,7 @@ namespace Legacy
 
 		public static T Instantiate<T>(T p_original, Vector3 p_position) where T : UnityEngine.Object
 		{
-			return Instantiate<T>(p_original, p_position, Quaternion.identity);
+			return Instantiate(p_original, p_position, Quaternion.identity);
 		}
 
 		public static T Instantiate<T>(T p_original, Vector3 p_position, Quaternion p_rotation) where T : UnityEngine.Object
@@ -159,7 +158,7 @@ namespace Legacy
 
 		public static void DestroyImmediate<T>(T p_obj) where T : UnityEngine.Object
 		{
-			DestroyImmediate<T>(ref p_obj);
+			DestroyImmediate(ref p_obj);
 		}
 
 		public static void DestroyImmediate<T>(ref T p_obj) where T : UnityEngine.Object
@@ -177,7 +176,7 @@ namespace Legacy
 			{
 				for (Int32 i = 0; i < p_array.Length; i++)
 				{
-					DestroyImmediate<T>(ref p_array[i]);
+					DestroyImmediate(ref p_array[i]);
 				}
 				p_array = null;
 			}
@@ -200,17 +199,17 @@ namespace Legacy
 
 		public static void DestroyGO<T>(T p_obj) where T : Component
 		{
-			DestroyGO<T>(ref p_obj, 0f);
+			DestroyGO(ref p_obj, 0f);
 		}
 
 		public static void DestroyGO<T>(ref T p_obj) where T : Component
 		{
-			DestroyGO<T>(ref p_obj, 0f);
+			DestroyGO(ref p_obj, 0f);
 		}
 
 		public static void DestroyGO<T>(T p_obj, Single delayTime) where T : Component
 		{
-			DestroyGO<T>(ref p_obj, delayTime);
+			DestroyGO(ref p_obj, delayTime);
 		}
 
 		public static void DestroyGO<T>(ref T p_obj, Single delayTime) where T : Component
@@ -224,17 +223,17 @@ namespace Legacy
 
 		public static void Destroy<T>(T p_obj) where T : UnityEngine.Object
 		{
-			Destroy<T>(ref p_obj, 0f);
+			Destroy(ref p_obj, 0f);
 		}
 
 		public static void Destroy<T>(ref T p_obj) where T : UnityEngine.Object
 		{
-			Destroy<T>(ref p_obj, 0f);
+			Destroy(ref p_obj, 0f);
 		}
 
 		public static void Destroy<T>(T p_obj, Single delayTime) where T : UnityEngine.Object
 		{
-			Destroy<T>(ref p_obj, delayTime);
+			Destroy(ref p_obj, delayTime);
 		}
 
 		public static void Destroy<T>(ref T p_obj, Single delayTime) where T : UnityEngine.Object
@@ -252,7 +251,7 @@ namespace Legacy
 			{
 				for (Int32 i = 0; i < p_array.Length; i++)
 				{
-					Destroy<T>(ref p_array[i]);
+					Destroy(ref p_array[i]);
 				}
 				p_array = null;
 			}
@@ -269,7 +268,7 @@ namespace Legacy
 				for (Int32 i = 0; i < p_list.Count; i++)
 				{
 					T t = p_list[i];
-					Destroy<T>(ref t);
+					Destroy(ref t);
 				}
 				p_list.Clear();
 			}
@@ -278,19 +277,19 @@ namespace Legacy
 		public static Color ToColor(UInt32 p_rgba)
 		{
 			Color result;
-			result.r = ((p_rgba & 4278190080u) >> 24) * 0.003921569f;
-			result.g = ((p_rgba & 16711680u) >> 16) * 0.003921569f;
-			result.b = ((p_rgba & 65280u) >> 8) * 0.003921569f;
-			result.a = (p_rgba & 255u) * 0.003921569f;
+			result.r = ((p_rgba & 4278190080u) >> 24) * BYTE_TO_COLOR;
+			result.g = ((p_rgba & 16711680u) >> 16) * BYTE_TO_COLOR;
+			result.b = ((p_rgba & 65280u) >> 8) * BYTE_TO_COLOR;
+			result.a = (p_rgba & 255u) * BYTE_TO_COLOR;
 			return result;
 		}
 
 		public static Color ToColor(Int32 p_rgb)
 		{
 			Color result;
-			result.r = ((p_rgb & 16711680) >> 16) * 0.003921569f;
-			result.g = ((p_rgb & 65280) >> 8) * 0.003921569f;
-			result.b = (p_rgb & 255) * 0.003921569f;
+			result.r = ((p_rgb & 16711680) >> 16) * BYTE_TO_COLOR;
+			result.g = ((p_rgb & 65280) >> 8) * BYTE_TO_COLOR;
+			result.b = (p_rgb & 255) * BYTE_TO_COLOR;
 			result.a = 1f;
 			return result;
 		}
@@ -298,19 +297,19 @@ namespace Legacy
 		public static Color ToColor(Byte p_r, Byte p_g, Byte p_b, Byte p_a)
 		{
 			Color result;
-			result.r = p_r * 0.003921569f;
-			result.g = p_g * 0.003921569f;
-			result.b = p_b * 0.003921569f;
-			result.a = p_a * 0.003921569f;
+			result.r = p_r * BYTE_TO_COLOR;
+			result.g = p_g * BYTE_TO_COLOR;
+			result.b = p_b * BYTE_TO_COLOR;
+			result.a = p_a * BYTE_TO_COLOR;
 			return result;
 		}
 
 		public static Color ToColor(Byte p_r, Byte p_g, Byte p_b)
 		{
 			Color result;
-			result.r = p_r * 0.003921569f;
-			result.g = p_g * 0.003921569f;
-			result.b = p_b * 0.003921569f;
+			result.r = p_r * BYTE_TO_COLOR;
+			result.g = p_g * BYTE_TO_COLOR;
+			result.b = p_b * BYTE_TO_COLOR;
 			result.a = 1f;
 			return result;
 		}
@@ -438,7 +437,7 @@ namespace Legacy
 
 		public static void SendEvent(this MonoBehaviour comp, String methodName, UnityEventArgs handler, SendMessageOptions options)
 		{
-			comp.SendEvent(methodName, handler, options);
+			SendEvent((Component)comp, methodName, handler, options);
 		}
 
 		public static void SendEvent(this Component comp, String methodName, UnityEventArgs handler)

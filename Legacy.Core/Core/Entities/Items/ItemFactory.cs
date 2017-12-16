@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Legacy.Core.Api;
 using Legacy.Core.Combat;
+using Legacy.Core.Configuration;
 using Legacy.Core.Entities.Skills;
 using Legacy.Core.PartyManagement;
 using Legacy.Core.StaticData;
@@ -359,40 +361,83 @@ namespace Legacy.Core.Entities.Items
 				m_suffixProbabilities[EEquipmentType.ARCANE] = new EnchantmentProbabilityList(iterator2, EEquipmentType.ARMOR, EEquipmentType.ARCANE);
 				m_suffixProbabilities[EEquipmentType.MARTIAL] = new EnchantmentProbabilityList(iterator2, EEquipmentType.ARMOR, EEquipmentType.MARTIAL);
 			}
-			EEquipmentType eequipmentType = DetermineType(EQUIPMENT_CLASSES, p_specificationList);
-			Boolean flag = Random.Value < p_prefixChance;
-			Boolean flag2 = Random.Value < p_suffixChance;
-			Int32 p_suffixLevel = -1;
-			Int32 p_prefixLevel = -1;
-			ModelProbability modelProbability = DetermineModelLevel(p_modelLevels);
-			if (flag)
-			{
-				p_prefixLevel = DetermineEnchantmentLevel(p_prefixProbabilities);
-			}
-			if (flag2)
-			{
-				p_suffixLevel = DetermineEnchantmentLevel(p_suffixProbabilities);
-			}
-			switch (eequipmentType)
-			{
-			case EEquipmentType.ARMOR:
-				return CreateArmor(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
-			case EEquipmentType.JEWELRY:
-				return CreateJewelry(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
-			case EEquipmentType.SHIELD:
-				return CreateShield(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
-			case EEquipmentType.MELEE_WEAPON:
-				return CreateMeleeWeapon(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
-			case EEquipmentType.MAGIC_FOCUS:
-				return CreateMagicFocus(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
-			case EEquipmentType.RANGED_WEAPON:
-				return CreateRangedWeapon(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
-			default:
-				return null;
-			}
+
+            return CreateRandomEquipment(p_modelLevels, p_prefixChance, p_suffixChance, p_prefixProbabilities, p_suffixProbabilities, p_specificationList);
 		}
 
-		private static ModelProbability DetermineModelLevel(ModelProbability[] p_modelLevels)
+	    private static Equipment CreateRandomEquipment(ModelProbability[] p_modelLevels, Single p_prefixChance, Single p_suffixChance, EnchantmentProbability[] p_prefixProbabilities, EnchantmentProbability[] p_suffixProbabilities, EEquipmentType[] p_specificationList)
+	    {
+	        Equipment item = CreateRandomEquipmentInternal(p_modelLevels, p_prefixChance, p_suffixChance, p_prefixProbabilities, p_suffixProbabilities, p_specificationList);
+	        if (item == null)
+	            return null;
+
+	        Int32 retriesNumber = ConfigManager.Instance.Game.GenerateCompatibleEquipmentRetriesNumber;
+	        if (retriesNumber < 1)
+	            return item;
+
+            Equipment firstItem = item;
+	        Character[] members = LegacyLogic.Instance.WorldManager.Party.Members;
+
+	        for (Int32 i = 0; i < retriesNumber; i++)
+	        {
+	            foreach (Character member in members)
+	            {
+	                Int32 requiredSkillID = CharacterSkillHandler.GetRequiredSkillID(item);
+	                if (requiredSkillID == 0)
+	                    return item;
+
+	                ETier requiredSkillTier = CharacterSkillHandler.GetRequiredSkillTier(item);
+	                Skill skill = member.SkillHandler.FindSkill(requiredSkillID);
+	                if (skill != null && skill.MaxTier >= requiredSkillTier)
+	                    return item;
+	            }
+
+	            item = CreateRandomEquipmentInternal(p_modelLevels, p_prefixChance, p_suffixChance, p_prefixProbabilities, p_suffixProbabilities, p_specificationList);
+	            if (item == null)
+	                return null;
+	        }
+
+	        return firstItem;
+	    }
+
+	    private static Equipment CreateRandomEquipmentInternal(ModelProbability[] p_modelLevels, Single p_prefixChance, Single p_suffixChance, EnchantmentProbability[] p_prefixProbabilities, EnchantmentProbability[] p_suffixProbabilities, EEquipmentType[] p_specificationList)
+	    {
+	        Boolean flag = Random.Value < p_prefixChance;
+	        Boolean flag2 = Random.Value < p_suffixChance;
+	        Int32 p_suffixLevel = -1;
+	        Int32 p_prefixLevel = -1;
+	        ModelProbability modelProbability = DetermineModelLevel(p_modelLevels);
+	        if (flag)
+	        {
+	            p_prefixLevel = DetermineEnchantmentLevel(p_prefixProbabilities);
+	        }
+	        if (flag2)
+	        {
+	            p_suffixLevel = DetermineEnchantmentLevel(p_suffixProbabilities);
+	        }
+
+	        EEquipmentType eequipmentType = DetermineType(EQUIPMENT_CLASSES, p_specificationList);
+
+	        switch (eequipmentType)
+	        {
+	            case EEquipmentType.ARMOR:
+	                return CreateArmor(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
+	            case EEquipmentType.JEWELRY:
+	                return CreateJewelry(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
+	            case EEquipmentType.SHIELD:
+	                return CreateShield(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
+	            case EEquipmentType.MELEE_WEAPON:
+	                return CreateMeleeWeapon(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
+	            case EEquipmentType.MAGIC_FOCUS:
+	                return CreateMagicFocus(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
+	            case EEquipmentType.RANGED_WEAPON:
+	                return CreateRangedWeapon(modelProbability.ModelLevel, modelProbability.SubModel, p_specificationList, p_prefixLevel, p_suffixLevel);
+	            default:
+	                return null;
+	        }
+	    }
+
+	    private static ModelProbability DetermineModelLevel(ModelProbability[] p_modelLevels)
 		{
 			Single num = 0f;
 			foreach (ModelProbability modelProbability in p_modelLevels)
@@ -636,44 +681,49 @@ namespace Legacy.Core.Entities.Items
 
 		private static EEquipmentType DetermineType(EEquipmentType[] p_types, EEquipmentType[] p_specificationList)
 		{
-			if (m_itemTypeTempFilter == null)
-			{
-				m_itemTypeTempFilter = new List<EEquipmentType>();
-			}
-			Single num = 0f;
-			Single num2 = 0f;
-			m_itemTypeTempFilter.Clear();
-			foreach (EEquipmentType eequipmentType in p_types)
-			{
-				foreach (EEquipmentType eequipmentType2 in p_specificationList)
-				{
-					if (eequipmentType2 == eequipmentType)
-					{
-						m_itemTypeTempFilter.Add(eequipmentType);
-					}
-				}
-			}
-			if (m_itemTypeTempFilter.Count == 0)
-			{
-				foreach (EEquipmentType item in p_types)
-				{
-					m_itemTypeTempFilter.Add(item);
-				}
-			}
-			foreach (EEquipmentType key in m_itemTypeTempFilter)
-			{
-				num2 += m_itemProbabilities[key];
-			}
-			Single num3 = Random.Range(0f, num2);
-			foreach (EEquipmentType eequipmentType3 in m_itemTypeTempFilter)
-			{
-				num += m_itemProbabilities[eequipmentType3];
-				if (num3 < num)
-				{
-					return eequipmentType3;
-				}
-			}
-			return EEquipmentType.NONE;
+		    return DetermineTypes(p_types, p_specificationList).FirstOrDefault();
 		}
-	}
+
+	    private static IEnumerable<EEquipmentType> DetermineTypes(EEquipmentType[] p_types, EEquipmentType[] p_specificationList)
+	    {
+	        if (m_itemTypeTempFilter == null)
+	        {
+	            m_itemTypeTempFilter = new List<EEquipmentType>();
+	        }
+	        Single num = 0f;
+	        Single num2 = 0f;
+	        m_itemTypeTempFilter.Clear();
+	        foreach (EEquipmentType eequipmentType in p_types)
+	        {
+	            foreach (EEquipmentType eequipmentType2 in p_specificationList)
+	            {
+	                if (eequipmentType2 == eequipmentType)
+	                {
+	                    m_itemTypeTempFilter.Add(eequipmentType);
+	                }
+	            }
+	        }
+	        if (m_itemTypeTempFilter.Count == 0)
+	        {
+	            foreach (EEquipmentType item in p_types)
+	            {
+	                m_itemTypeTempFilter.Add(item);
+	            }
+	        }
+	        foreach (EEquipmentType key in m_itemTypeTempFilter)
+	        {
+	            num2 += m_itemProbabilities[key];
+	        }
+	        Single num3 = Random.Range(0f, num2);
+	        foreach (EEquipmentType eequipmentType3 in m_itemTypeTempFilter)
+	        {
+	            num += m_itemProbabilities[eequipmentType3];
+	            if (num3 < num)
+	            {
+	                yield return eequipmentType3;
+	            }
+	        }
+	        yield return EEquipmentType.NONE;
+	    }
+    }
 }
