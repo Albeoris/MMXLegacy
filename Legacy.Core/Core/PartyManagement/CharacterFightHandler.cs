@@ -95,7 +95,7 @@ namespace Legacy.Core.PartyManagement
 					attack.Damages.Add(item);
 				}
 			}
-			if (m_fighter.Class.IsWindsword() && m_fighter.SelectedMonster.CurrentHealth == m_fighter.SelectedMonster.StaticData.MaxHealthpoints)
+			if (m_fighter.Class.IsWindsword() && m_fighter.SelectedMonster.CurrentHealth == m_fighter.SelectedMonster.MaxHealth)
 			{
 				p_firstStrikeAllwaysCritical = true;
 				p_firstAttackAllwaysSuccessful = true;
