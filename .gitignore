@@ -23,6 +23,17 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+/Output/
+*.suo
+*.user
+*.DotSettings*
+*.dgml
+*.VC.opendb
+*.VC.db
+*.idb
+*.sdf
+*.tlog
+*.meta
 
 # Visual Studio 2015 cache/options directory
 .vs/

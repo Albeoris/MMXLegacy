@@ -1,0 +1,19 @@
+﻿using System;
+
+namespace Legacy.Core.Entities.Items
+{
+	public enum EItemSlot
+	{
+		ITEM_SLOT_HEAD,
+		ITEM_SLOT_TORSO,
+		ITEM_SLOT_HAND,
+		ITEM_SLOT_FEET,
+		ITEM_SLOT_NECKLACE,
+		ITEM_SLOT_RING,
+		ITEM_SLOT_1_HAND,
+		ITEM_SLOT_2_HAND,
+		ITEM_SLOT_MAINHAND,
+		ITEM_SLOT_OFFHAND,
+		ITEM_SLOT_RANGED
+	}
+}

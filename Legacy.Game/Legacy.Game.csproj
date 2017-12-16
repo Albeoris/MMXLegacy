@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <UsingTask AssemblyFile="$(SolutionDir)\References\Legacy.MSBuild.dll" TaskName="Legacy.MSBuild.Deploy" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C39578A2-BA9B-43CF-B5B8-3EBF1DDC4663}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Legacy</RootNamespace>
+    <AssemblyName>Legacy.Game</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <FrameworkPathOverride>$(SolutionDir)\References\</FrameworkPathOverride>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>CS0414;CS0649;CS0169;CS0108;CS0618;CS0067</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\References\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>..\References\System.Xml.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\References\System.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\ServiceWrapper\RendezVousInvokes.cs" />
+    <Compile Include="Core\ServiceWrapper\TrackingOnlyServiceWrapperStrategy.cs" />
+    <Compile Include="Core\ServiceWrapper\UplayInvokes.cs" />
+    <Compile Include="Core\ServiceWrapper\UplaySaveGameManager.cs" />
+    <Compile Include="Core\ServiceWrapper\UplayServiceWrapperStrategy.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_DataBlob.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_Event.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_EventType.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_Overlapped.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_OverlappedResult.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_OVERLAY_Section.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_SAVE_Game.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_SAVE_GameList.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_SAVE_Mode.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_USER_CdKey.cs" />
+    <Compile Include="Core\ServiceWrapper\UPLAY_USER_CdKeyList.cs" />
+    <Compile Include="Game\AttributeChanger.cs" />
+    <Compile Include="Game\AwardView.cs" />
+    <Compile Include="Game\BestiaryProgressBar.cs" />
+    <Compile Include="Game\CharacterStatCondition.cs" />
+    <Compile Include="Game\CheatsHirelings.cs" />
+    <Compile Include="Game\CheatsQuest.cs" />
+    <Compile Include="Game\CheatsTimeFlow.cs" />
+    <Compile Include="Game\Cheats\CheatController.cs" />
+    <Compile Include="Game\Cheats\CheatsAchievements.cs" />
+    <Compile Include="Game\Cheats\CheatsCamera.cs" />
+    <Compile Include="Game\Cheats\CheatsCharacters.cs" />
+    <Compile Include="Game\Cheats\CheatsItems.cs" />
+    <Compile Include="Game\Cheats\CheatsLorebook.cs" />
+    <Compile Include="Game\Cheats\CheatsMonsters.cs" />
+    <Compile Include="Game\Cheats\CheatsParty.cs" />
+    <Compile Include="Game\ClassSelectButton.cs" />
+    <Compile Include="Game\ContextChangedEventArgs.cs" />
+    <Compile Include="Game\Context\BaseContext.cs" />
+    <Compile Include="Game\Context\ContextManager.cs" />
+    <Compile Include="Game\Context\CtxCredits.cs" />
+    <Compile Include="Game\Context\CtxDevLogos.cs" />
+    <Compile Include="Game\Context\CtxEnd.cs" />
+    <Compile Include="Game\Context\CtxGame.cs" />
+    <Compile Include="Game\Context\CtxGameOver.cs" />
+    <Compile Include="Game\Context\CtxIntro.cs" />
+    <Compile Include="Game\Context\CtxMainmenu.cs" />
+    <Compile Include="Game\CtxDiploma.cs" />
+    <Compile Include="Game\CtxPartyCreation.cs" />
+    <Compile Include="Game\EContext.cs" />
+    <Compile Include="Game\HUDMonsterHPBarToolTips.cs" />
+    <Compile Include="Game\HUD\BaseHUDLog.cs" />
+    <Compile Include="Game\HUD\CharacterHud.cs" />
+    <Compile Include="Game\HUD\CharacterHudInfoTooltip.cs" />
+    <Compile Include="Game\HUD\CharacterHudStatIcon.cs" />
+    <Compile Include="Game\HUD\CharacterHudStatManager.cs" />
+    <Compile Include="Game\HUD\ConversationView.cs" />
+    <Compile Include="Game\HUD\DebugPerformanceView.cs" />
+    <Compile Include="Game\HUD\GameMessageController.cs" />
+    <Compile Include="Game\HUD\HirelingHUD.cs" />
+    <Compile Include="Game\HUD\HUDActionLog.cs" />
+    <Compile Include="Game\HUD\HUDActionLogDragButton.cs" />
+    <Compile Include="Game\HUD\HUDCharacterAction.cs" />
+    <Compile Include="Game\HUD\HUDController.cs" />
+    <Compile Include="Game\HUD\HUDDangerSense.cs" />
+    <Compile Include="Game\HUD\HUDDangerSenseTransitionHandler.cs" />
+    <Compile Include="Game\HUD\HUDHitEffects.cs" />
+    <Compile Include="Game\HUD\HUDLoot.cs" />
+    <Compile Include="Game\HUD\HUDLootEntry.cs" />
+    <Compile Include="Game\HUD\HUDPartyBuffs.cs" />
+    <Compile Include="Game\HUD\HUDSideInfoBase.cs" />
+    <Compile Include="Game\HUD\HUDSideInfoBook.cs" />
+    <Compile Include="Game\HUD\HUDSideInfoHandlerBase.cs" />
+    <Compile Include="Game\HUD\HUDSideInfoQuest.cs" />
+    <Compile Include="Game\HUD\HUDSideInfoQuestHandler.cs" />
+    <Compile Include="Game\HUD\HUDSideInfoToken.cs" />
+    <Compile Include="Game\HUD\ICharacterSelectionListener.cs" />
+    <Compile Include="Game\HUD\InteractiveObjectTooltip.cs" />
+    <Compile Include="Game\HUD\IResizable.cs" />
+    <Compile Include="Game\HUD\NewHUDQuestLog.cs" />
+    <Compile Include="Game\HUD\NewHUDQuestLogEntry.cs" />
+    <Compile Include="Game\HUD\NewHUDQuestObjective.cs" />
+    <Compile Include="Game\IdentifyItemContainer.cs" />
+    <Compile Include="Game\IdentifyScreen.cs" />
+    <Compile Include="Game\IngameManagement\IIngameContext.cs" />
+    <Compile Include="Game\IngameManagement\IngameController.cs" />
+    <Compile Include="Game\IngameManagement\IngameInput.cs" />
+    <Compile Include="Game\IngameManagement\MouseInteraction.cs" />
+    <Compile Include="Game\IngameManagement\OverlayManager.cs" />
+    <Compile Include="Game\Intro\DevIntroController.cs" />
+    <Compile Include="Game\Intro\IntroController.cs" />
+    <Compile Include="Game\ItemSlotIdentify.cs" />
+    <Compile Include="Game\JournalQuestObjective.cs" />
+    <Compile Include="Game\Main.cs" />
+    <Compile Include="Game\Menus\CreditScreenLogic.cs" />
+    <Compile Include="Game\Menus\EndGUILogic.cs" />
+    <Compile Include="Game\Menus\IngameMenu.cs" />
+    <Compile Include="Game\Menus\KeyConfigBox.cs" />
+    <Compile Include="Game\Menus\KeyConfigView.cs" />
+    <Compile Include="Game\Menus\MainGUILogic.cs" />
+    <Compile Include="Game\Menus\OptionsGame.cs" />
+    <Compile Include="Game\Menus\OptionsGraphics.cs" />
+    <Compile Include="Game\Menus\OptionsInput.cs" />
+    <Compile Include="Game\Menus\OptionsMenu.cs" />
+    <Compile Include="Game\Menus\OptionsSound.cs" />
+    <Compile Include="Game\Menus\PartyCreationCustom.cs" />
+    <Compile Include="Game\Menus\PartyCreationLogic.cs" />
+    <Compile Include="Game\MMGUI\AchievementOverlayController.cs" />
+    <Compile Include="Game\MMGUI\ActionBarView.cs" />
+    <Compile Include="Game\MMGUI\ActionButtonView.cs" />
+    <Compile Include="Game\MMGUI\AreaMapCompass.cs" />
+    <Compile Include="Game\MMGUI\AreaMapController.cs" />
+    <Compile Include="Game\MMGUI\AttributeLevelButton.cs" />
+    <Compile Include="Game\MMGUI\AwardContainer.cs" />
+    <Compile Include="Game\MMGUI\BaseDragObject.cs" />
+    <Compile Include="Game\MMGUI\BaseScreen.cs" />
+    <Compile Include="Game\MMGUI\BasicActionDragObject.cs" />
+    <Compile Include="Game\MMGUI\BestiaryCameraSetup.cs" />
+    <Compile Include="Game\MMGUI\BestiaryController.cs" />
+    <Compile Include="Game\MMGUI\BestiaryInfoController.cs" />
+    <Compile Include="Game\MMGUI\BilateralScreen.cs" />
+    <Compile Include="Game\MMGUI\BookEntry.cs" />
+    <Compile Include="Game\MMGUI\ButtonHighlight.cs" />
+    <Compile Include="Game\MMGUI\CharacterPosing.cs" />
+    <Compile Include="Game\MMGUI\CharacterScreen.cs" />
+    <Compile Include="Game\MMGUI\CharacterStatBox.cs" />
+    <Compile Include="Game\MMGUI\CharacterStatCollection.cs" />
+    <Compile Include="Game\MMGUI\CharacterStatEntry.cs" />
+    <Compile Include="Game\MMGUI\CheckResolution.cs" />
+    <Compile Include="Game\MMGUI\CombatActionBarView.cs" />
+    <Compile Include="Game\MMGUI\CutsceneVideo\CutsceneVideoController.cs" />
+    <Compile Include="Game\MMGUI\DialogEntryView.cs" />
+    <Compile Include="Game\MMGUI\DialogView.cs" />
+    <Compile Include="Game\MMGUI\DialogViewScrollWheelHelper.cs" />
+    <Compile Include="Game\MMGUI\DiplomaScreen.cs" />
+    <Compile Include="Game\MMGUI\DragDropManager.cs" />
+    <Compile Include="Game\MMGUI\DragMessage.cs" />
+    <Compile Include="Game\MMGUI\EquipmentItemContainer.cs" />
+    <Compile Include="Game\MMGUI\EquipmentSlot.cs" />
+    <Compile Include="Game\MMGUI\GameOverManager.cs" />
+    <Compile Include="Game\MMGUI\HelpScreen.cs" />
+    <Compile Include="Game\MMGUI\HudFreskoView.cs" />
+    <Compile Include="Game\MMGUI\InventorySlot.cs" />
+    <Compile Include="Game\MMGUI\InventoryTab.cs" />
+    <Compile Include="Game\MMGUI\IScrollingListener.cs" />
+    <Compile Include="Game\MMGUI\ItemContainer.cs" />
+    <Compile Include="Game\MMGUI\ItemDragObject.cs" />
+    <Compile Include="Game\MMGUI\ItemSlot.cs" />
+    <Compile Include="Game\MMGUI\ItemSlotLoot.cs" />
+    <Compile Include="Game\MMGUI\ItemSlotTrading.cs" />
+    <Compile Include="Game\MMGUI\Journal.cs" />
+    <Compile Include="Game\MMGUI\LoadingAnim.cs" />
+    <Compile Include="Game\MMGUI\LoadingScreen.cs" />
+    <Compile Include="Game\MMGUI\LootContainerView.cs" />
+    <Compile Include="Game\MMGUI\LootDragObject.cs" />
+    <Compile Include="Game\MMGUI\LootItemContainer.cs" />
+    <Compile Include="Game\MMGUI\LootScreen.cs" />
+    <Compile Include="Game\MMGUI\LoreBookController.cs" />
+    <Compile Include="Game\MMGUI\Minimap\AreaCameraView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\ClockView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\DoorSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\EntranceSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\ExploreMapView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\IndicatorArrowView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\IndicatorView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\MinimapView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\MonsterSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\MoveableSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\NorthIndicatorArrowView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\NpcSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\PlayerSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\SimpleSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\SpiritBeaconSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\StairsSymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\SymbolView.cs" />
+    <Compile Include="Game\MMGUI\Minimap\UserMapNoteController.cs" />
+    <Compile Include="Game\MMGUI\Minimap\UserMapNoteView.cs" />
+    <Compile Include="Game\MMGUI\ModEntry.cs" />
+    <Compile Include="Game\MMGUI\ModMenu.cs" />
+    <Compile Include="Game\MMGUI\MonsterStatEntry.cs" />
+    <Compile Include="Game\MMGUI\MovementActionBar.cs" />
+    <Compile Include="Game\MMGUI\MovementActionButton.cs" />
+    <Compile Include="Game\MMGUI\MovieSubtitleController.cs" />
+    <Compile Include="Game\MMGUI\MultiTextControl.cs" />
+    <Compile Include="Game\MMGUI\NpcContainerView.cs" />
+    <Compile Include="Game\MMGUI\NpcView.cs" />
+    <Compile Include="Game\MMGUI\NpcViewHighlight.cs" />
+    <Compile Include="Game\MMGUI\OuterDropCollider.cs" />
+    <Compile Include="Game\MMGUI\PageableListController.cs" />
+    <Compile Include="Game\MMGUI\PartyCreate\PartyCreationAttributes.cs" />
+    <Compile Include="Game\MMGUI\PartyCreate\PartyCreationClasses.cs" />
+    <Compile Include="Game\MMGUI\PartyCreate\PartyCreationCustomize.cs" />
+    <Compile Include="Game\MMGUI\PartyCreate\PartyCreationRaces.cs" />
+    <Compile Include="Game\MMGUI\PartyCreate\PartyCreationSkills.cs" />
+    <Compile Include="Game\MMGUI\PartyCreationCharacter.cs" />
+    <Compile Include="Game\MMGUI\PartyInventoryItemContainer.cs" />
+    <Compile Include="Game\MMGUI\PopupItemSplitter.cs" />
+    <Compile Include="Game\MMGUI\PopupRequest.cs" />
+    <Compile Include="Game\MMGUI\PortraitDragObject.cs" />
+    <Compile Include="Game\MMGUI\PortraitXpBar.cs" />
+    <Compile Include="Game\MMGUI\PreconditionPopupConfirm.cs" />
+    <Compile Include="Game\MMGUI\PreconditionPopupInput.cs" />
+    <Compile Include="Game\MMGUI\PreconditionPopupWhoWill.cs" />
+    <Compile Include="Game\MMGUI\PreconditionPopupYesNo.cs" />
+    <Compile Include="Game\MMGUI\QuestEntry.cs" />
+    <Compile Include="Game\MMGUI\QuestSelectPanel.cs" />
+    <Compile Include="Game\MMGUI\QuestTabInfo.cs" />
+    <Compile Include="Game\MMGUI\QuestTokenPanel.cs" />
+    <Compile Include="Game\MMGUI\QuestTokenView.cs" />
+    <Compile Include="Game\MMGUI\QuickActionDragObject.cs" />
+    <Compile Include="Game\MMGUI\RectangularItemContainer.cs" />
+    <Compile Include="Game\MMGUI\RessourceView.cs" />
+    <Compile Include="Game\MMGUI\SaveGameEntry.cs" />
+    <Compile Include="Game\MMGUI\SaveGameMenuController.cs" />
+    <Compile Include="Game\MMGUI\ScrollingHelper.cs" />
+    <Compile Include="Game\MMGUI\SelectionList.cs" />
+    <Compile Include="Game\MMGUI\SelectionListItem.cs" />
+    <Compile Include="Game\MMGUI\ShopDragObject.cs" />
+    <Compile Include="Game\MMGUI\SimpleTooltipView.cs" />
+    <Compile Include="Game\MMGUI\SkillDisabledTooltip.cs" />
+    <Compile Include="Game\MMGUI\SkillLevelButton.cs" />
+    <Compile Include="Game\MMGUI\SkillTierView.cs" />
+    <Compile Include="Game\MMGUI\SkillView.cs" />
+    <Compile Include="Game\MMGUI\SkillViewPanel.cs" />
+    <Compile Include="Game\MMGUI\Spellbook.cs" />
+    <Compile Include="Game\MMGUI\SpellbookPager.cs" />
+    <Compile Include="Game\MMGUI\SpellDragObject.cs" />
+    <Compile Include="Game\MMGUI\SpellSelectPartyTarget.cs" />
+    <Compile Include="Game\MMGUI\SpellSlot.cs" />
+    <Compile Include="Game\MMGUI\SpellSpiritBeaconPopup.cs" />
+    <Compile Include="Game\MMGUI\SpellTradingScreen.cs" />
+    <Compile Include="Game\MMGUI\SpellView.cs" />
+    <Compile Include="Game\MMGUI\SpellViewPanel.cs" />
+    <Compile Include="Game\MMGUI\StandardActionBarView.cs" />
+    <Compile Include="Game\MMGUI\Subtitle.cs" />
+    <Compile Include="Game\MMGUI\Tab.cs" />
+    <Compile Include="Game\MMGUI\TabController.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\ActionTooltipOnHover.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\AttributeTooltip.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\ItemTooltip.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\MapTooltip.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\SkillTooltip.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\SpellTooltip.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\TextTooltip.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\TextTooltipOnHover.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\TooltipBackground.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\TooltipGroup.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\TooltipItemSlot.cs" />
+    <Compile Include="Game\MMGUI\Tooltip\TooltipManager.cs" />
+    <Compile Include="Game\MMGUI\TradingCompareCharacter.cs" />
+    <Compile Include="Game\MMGUI\TradingCompareContainer.cs" />
+    <Compile Include="Game\MMGUI\TradingItemContainer.cs" />
+    <Compile Include="Game\MMGUI\TradingScreen.cs" />
+    <Compile Include="Game\MMGUI\UICameraCustom.cs" />
+    <Compile Include="Game\MMGUI\UnlockContentEntry.cs" />
+    <Compile Include="Game\MMGUI\UnlockContentManager.cs" />
+    <Compile Include="Game\MMGUI\UPlayOverlay.cs" />
+    <Compile Include="Game\MMGUI\Videos\BinkVideoController.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\MapController.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\MouseEventTransfer.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\WorldMapController.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\WorldMapIcon.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\WorldMapPlayerIcon.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\WorldMapPlayerIconTrail.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\WorldMapSpiritBeaconIcon.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\WorldMapUserMapNoteController.cs" />
+    <Compile Include="Game\MMGUI\WorldMap\WorldMapUserMapNoteView.cs" />
+    <Compile Include="Game\MMGUI\XPBar.cs" />
+    <Compile Include="Game\PartyCreationSelectDifficulty.cs" />
+    <Compile Include="Game\PartyCreationSelectMode.cs" />
+    <Compile Include="Game\PartyCreationSummary.cs" />
+    <Compile Include="Game\PartyScreen.cs" />
+    <Compile Include="Game\PopupHint.cs" />
+    <Compile Include="Game\PopupSpendAttributes.cs" />
+    <Compile Include="Game\PortraitSelectButton.cs" />
+    <Compile Include="Game\RaceSelectButton.cs" />
+    <Compile Include="Game\Scene\End\EndController.cs" />
+    <Compile Include="Game\SkillSelectButton.cs" />
+    <Compile Include="Game\SummaryCharacter.cs" />
+    <Compile Include="Game\SummarySkill.cs" />
+    <Compile Include="Game\Views\Cutscenes\CutsceneErebosEntrance.cs" />
+    <Compile Include="Game\Views\Cutscenes\CutsceneSummerPalaceEntrance.cs" />
+    <Compile Include="Game\VoiceSelectButton.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Cutscenes\CutsceneErebosFinishing.cs" />
+    <Compile Include="Views\Cutscenes\CutsceneExclusiveDungeon_Ending.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Legacy.Core\Legacy.Core.csproj">
+      <Project>{dfddac30-ef12-4ed3-a35d-02fb4438092f}</Project>
+      <Name>Legacy.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Legacy.Framework\Legacy.Framework.csproj">
+      <Project>{bc1c1d12-eeed-4c52-9563-c1fbce9cea19}</Project>
+      <Name>Legacy.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Deploy SolutionDir="$(SolutionDir)" TargetPath="$(TargetPath)" TargetDir="$(TargetDir)" TargetName="$(TargetName)" />
+  </Target>
+</Project>

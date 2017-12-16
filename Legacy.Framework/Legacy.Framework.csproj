@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <UsingTask AssemblyFile="$(SolutionDir)\References\Legacy.MSBuild.dll" TaskName="Legacy.MSBuild.Deploy" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BC1C1D12-EEED-4C52-9563-C1FBCE9CEA19}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Legacy.Framework</RootNamespace>
+    <AssemblyName>Legacy.Framework</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <FrameworkPathOverride>$(SolutionDir)\References\</FrameworkPathOverride>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>CS0414;CS0649;CS0169;CS0108;CS0618;CS0067</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\References\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\References\System.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>..\References\System.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveAnimation.cs" />
+    <Compile Include="AnimatedAlpha.cs" />
+    <Compile Include="AnimatedColor.cs" />
+    <Compile Include="AnimationOrTween\Direction.cs" />
+    <Compile Include="AnimationOrTween\DisableCondition.cs" />
+    <Compile Include="AnimationOrTween\EnableCondition.cs" />
+    <Compile Include="AnimationOrTween\Trigger.cs" />
+    <Compile Include="ArrayHelper.cs" />
+    <Compile Include="AssetBundles\Core\AssetAsyncLoad.cs" />
+    <Compile Include="AssetBundles\Core\AssetBundleCache.cs" />
+    <Compile Include="AssetBundles\Core\AssetBundleData.cs" />
+    <Compile Include="AssetBundles\Core\AssetBundleDatabase.cs" />
+    <Compile Include="AssetBundles\Core\AssetBundleManager.cs" />
+    <Compile Include="AssetBundles\Core\AssetBundleManagerDebugGUI.cs" />
+    <Compile Include="AssetBundles\Core\AssetBundleRequest.cs" />
+    <Compile Include="AssetBundles\Core\AssetBundleRequestCallback.cs" />
+    <Compile Include="AssetBundles\Core\AssetKey.cs" />
+    <Compile Include="AssetBundles\Core\AssetRequest.cs" />
+    <Compile Include="AssetBundles\Core\AssetRequestCallback.cs" />
+    <Compile Include="AssetBundles\Core\ERequestStatus.cs" />
+    <Compile Include="AssetBundles\Core\EStatus.cs" />
+    <Compile Include="AssetBundles\Core\Loader\AssetBundleCachedWebLoader.cs" />
+    <Compile Include="AssetBundles\Core\Loader\AssetBundleLoader.cs" />
+    <Compile Include="AssetBundles\Core\Loader\AssetBundleRawFileLoader.cs" />
+    <Compile Include="AssetBundles\Core\Loader\AssetBundleRequest.cs" />
+    <Compile Include="AssetBundles\Core\Loader\AssetBundleWebLoader.cs" />
+    <Compile Include="AssetBundles\Core\Loader\CachedWebRequest.cs" />
+    <Compile Include="AssetBundles\Core\Loader\FileRequest.cs" />
+    <Compile Include="AssetBundles\Core\Loader\LoadCompletedEventArgs.cs" />
+    <Compile Include="AssetBundles\Core\Loader\LoadEventArgs.cs" />
+    <Compile Include="AssetBundles\Core\Loader\LoadProgressChangedEventArgs.cs" />
+    <Compile Include="AssetBundles\Core\Loader\LoadStartedEventArgs.cs" />
+    <Compile Include="AssetBundles\Core\Loader\WebRequest.cs" />
+    <Compile Include="AssetBundles\Core\Request.cs" />
+    <Compile Include="AssetBundles\Core\SceneRequest.cs" />
+    <Compile Include="AssetBundles\Core\SceneRequestCallback.cs" />
+    <Compile Include="AssetBundles\Core\Serialization\DatabaseDeserializer.cs" />
+    <Compile Include="AssetBundles\Core\Serialization\Decoder.cs" />
+    <Compile Include="AssetBundles\Core\Serialization\DefaultDecoder.cs" />
+    <Compile Include="AssetBundles\Core\Serialization\FourCC.cs" />
+    <Compile Include="AssetBundles\Core\UnityEventArgs.2.cs" />
+    <Compile Include="AssetBundles\Core\UnityEventArgs.cs" />
+    <Compile Include="AudioCategory.cs" />
+    <Compile Include="AudioController.cs" />
+    <Compile Include="AudioFader.cs" />
+    <Compile Include="AudioItem.cs" />
+    <Compile Include="AudioObject.cs" />
+    <Compile Include="AudioPickSubItemMode.cs" />
+    <Compile Include="AudioSubItem.cs" />
+    <Compile Include="AudioSubItemType.cs" />
+    <Compile Include="BackgroundGlowFX.cs" />
+    <Compile Include="BetterList.cs" />
+    <Compile Include="BMFont.cs" />
+    <Compile Include="BMGlyph.cs" />
+    <Compile Include="BMSymbol.cs" />
+    <Compile Include="ByteReader.cs" />
+    <Compile Include="ChainLightning.cs" />
+    <Compile Include="DM_OffScreenRenderer.cs" />
+    <Compile Include="DragHoverEventArgs.cs" />
+    <Compile Include="ExtentedTerrainPainter.cs" />
+    <Compile Include="GlowFXBase.cs" />
+    <Compile Include="GlowFXControlScript.cs" />
+    <Compile Include="HashSet_Flash.cs" />
+    <Compile Include="HUDDamageText.cs" />
+    <Compile Include="IgnoreTimeScale.cs" />
+    <Compile Include="Interpolate.cs" />
+    <Compile Include="IRegisteredComponent.cs" />
+    <Compile Include="ISingletonMonoBehaviour.cs" />
+    <Compile Include="Legacy\AmbientIndoorSoundSource.cs" />
+    <Compile Include="Legacy\AmbientSoundSource.cs" />
+    <Compile Include="Legacy\Animations\AnimatorControl.cs" />
+    <Compile Include="Legacy\Animations\AnimatorControlHOMMC.cs" />
+    <Compile Include="Legacy\Animations\AnimatorEvent.cs" />
+    <Compile Include="Legacy\Animations\AnimatorEventHandler.cs" />
+    <Compile Include="Legacy\Animations\AnimatorEx.cs" />
+    <Compile Include="Legacy\Animations\AnimatorMover.cs" />
+    <Compile Include="Legacy\Animations\AnimatorRotater.cs" />
+    <Compile Include="Legacy\Animations\AnimatorSoundEffects.cs" />
+    <Compile Include="Legacy\Animations\AnimConfig.cs" />
+    <Compile Include="Legacy\Animations\AnimEventHandler.cs" />
+    <Compile Include="Legacy\Animations\AnimHandler.cs" />
+    <Compile Include="Legacy\Animations\AnimPlayEventArgs.cs" />
+    <Compile Include="Legacy\Animations\AnimRotationHandler.cs" />
+    <Compile Include="Legacy\Animations\AnimSoundEffects.cs" />
+    <Compile Include="Legacy\Animations\BaseEventHandler.cs" />
+    <Compile Include="Legacy\Animations\EAnimEventType.cs" />
+    <Compile Include="Legacy\Animations\EAnimType.cs" />
+    <Compile Include="Legacy\Animations\PlayAnimationUnityEventArgs.cs" />
+    <Compile Include="Legacy\AnimatorControlTool.cs" />
+    <Compile Include="Legacy\AnimatorSplineMoveControl.cs" />
+    <Compile Include="Legacy\AnimShowHideFX.cs" />
+    <Compile Include="Legacy\Arrays.cs" />
+    <Compile Include="Legacy\AssetBundleDistanceLoader.cs" />
+    <Compile Include="Legacy\AssetBundleManagers.cs" />
+    <Compile Include="Legacy\AssetWeakReference.cs" />
+    <Compile Include="Legacy\AttacksUnityEventArgs.cs" />
+    <Compile Include="Legacy\Audio\AmbientSoundSourceBase.cs" />
+    <Compile Include="Legacy\Audio\AnimationSoundSource.cs" />
+    <Compile Include="Legacy\Audio\AudioBarkControllerView.cs" />
+    <Compile Include="Legacy\Audio\AudioCategoryMap.cs" />
+    <Compile Include="Legacy\Audio\AudioConst.cs" />
+    <Compile Include="Legacy\Audio\AudioControllerCallback.cs" />
+    <Compile Include="Legacy\Audio\AudioHelper.cs" />
+    <Compile Include="Legacy\Audio\AudioListenerController.cs" />
+    <Compile Include="Legacy\Audio\AudioManager.cs" />
+    <Compile Include="Legacy\Audio\AudioRequest.cs" />
+    <Compile Include="Legacy\Audio\EAudioRequestState.cs" />
+    <Compile Include="Legacy\Audio\MusicController.cs" />
+    <Compile Include="Legacy\Audio\MusicZoneTrigger.cs" />
+    <Compile Include="Legacy\Audio\PlayAudioCallback.cs" />
+    <Compile Include="Legacy\Audio\SoundSource.cs" />
+    <Compile Include="Legacy\Audio\SoundSourceBase.cs" />
+    <Compile Include="Legacy\Bink\BinkApi.cs" />
+    <Compile Include="Legacy\Bink\BinkMedia.cs" />
+    <Compile Include="Legacy\CommunityDungeonBossRevealView.cs" />
+    <Compile Include="Legacy\ComponentNotFoundException.cs" />
+    <Compile Include="Legacy\Configuration\EAnimationQuality.cs" />
+    <Compile Include="Legacy\Configuration\EAspectRatio.cs" />
+    <Compile Include="Legacy\Configuration\EEffectQuality.cs" />
+    <Compile Include="Legacy\Configuration\EFSAAMode.cs" />
+    <Compile Include="Legacy\Configuration\EObjectDetail.cs" />
+    <Compile Include="Legacy\Configuration\EShadowQuality.cs" />
+    <Compile Include="Legacy\Configuration\ETerrainDetails.cs" />
+    <Compile Include="Legacy\Configuration\ETerrainQuality.cs" />
+    <Compile Include="Legacy\Configuration\ETextureQuality.cs" />
+    <Compile Include="Legacy\Configuration\EViewDistance.cs" />
+    <Compile Include="Legacy\Configuration\GraphicsConfigManager.cs" />
+    <Compile Include="Legacy\Configuration\GraphicsSettings.cs" />
+    <Compile Include="Legacy\Configuration\KeyBindings.cs" />
+    <Compile Include="Legacy\Configuration\KeyConfigManager.cs" />
+    <Compile Include="Legacy\Configuration\Quality\BrightnessGammaTuneQuality.cs" />
+    <Compile Include="Legacy\Configuration\Quality\CameraHDRQuality.cs" />
+    <Compile Include="Legacy\Configuration\Quality\CameraLayerCullingQuality.cs" />
+    <Compile Include="Legacy\Configuration\Quality\ParticleQuality.cs" />
+    <Compile Include="Legacy\Configuration\Quality\QualityConfigurationBase.cs" />
+    <Compile Include="Legacy\Configuration\Quality\TerrainQuality.cs" />
+    <Compile Include="Legacy\Configuration\SoundConfigManager.cs" />
+    <Compile Include="Legacy\Configuration\SoundSettings.cs" />
+    <Compile Include="Legacy\CounterObjectRotationView.cs" />
+    <Compile Include="Legacy\CounterObjectTwoStateAnimationView.cs" />
+    <Compile Include="Legacy\CounterObjectTwoStateView.cs" />
+    <Compile Include="Legacy\CutsceneObjectMarker.cs" />
+    <Compile Include="Legacy\DaytimeDependentLight.cs" />
+    <Compile Include="Legacy\DaytimeDependentObject.cs" />
+    <Compile Include="Legacy\DaytimeDependetObjectIndoor.cs" />
+    <Compile Include="Legacy\Define.cs" />
+    <Compile Include="Legacy\DieFX.cs" />
+    <Compile Include="Legacy\Editor\DecalBumpTool.cs" />
+    <Compile Include="Legacy\EffectEngine\AlignPrefabToTargetPosition.cs" />
+    <Compile Include="Legacy\EffectEngine\BaseCameraFX.cs" />
+    <Compile Include="Legacy\EffectEngine\CameraShakeFX.cs" />
+    <Compile Include="Legacy\EffectEngine\CrystalCageFXQue.cs" />
+    <Compile Include="Legacy\EffectEngine\DelayedEventManager.cs" />
+    <Compile Include="Legacy\EffectEngine\DelayedEventManagerWorker.cs" />
+    <Compile Include="Legacy\EffectEngine\EDelayType.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\AdvancedLineRenderer.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\AdvancedTrailRenderer.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\AdvancedUVAnimatorAndScroller.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\AlignToFOV.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\BuffFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\CelestialArmorCameraFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\CelestialArmorMonsterBuffFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\ChainEffectFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\CharacterReplacementFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\CripplingTrap.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\DestroyOnInvisbleFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\DetachAndFollowParent.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\DetachFromParent.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\FacelessDieFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\FireShieldCameraFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\FXArgs.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\FXBase.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\HarpoonFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\HighlightFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\HighlightFXScreenSpaceLight.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\HitAbsorbingFXBase.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\HitAbsorbingParticleFXBase.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\IcePrisonFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\MagicDissolveObjectFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\MechanicalDissolveObjectFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\MonsterBuffGlowFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\MonsterEventListener.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\MultyTargetImpact.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\OutlineFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\OutlineFXBase.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\OutlineGlowFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\OutlineParticleSystemFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\PostFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\Projectile.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\ProjectileImpact.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\ProjectileMultiFake.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\ProjectileReturn.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\SkinnedMeshRendererGenerator.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\SnaringShot.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\SpawnPrefab.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\SpawnPrefabOnMonsterEvent.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\SpawnPrefabOnMonsterEventListener.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\SunderingFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\TimeStopFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\TrapHighlightFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\TrapHighlightGenericObjectFX.cs" />
+    <Compile Include="Legacy\EffectEngine\Effects\WindShieldCameraFX.cs" />
+    <Compile Include="Legacy\EffectEngine\FallingCamera.cs" />
+    <Compile Include="Legacy\EffectEngine\FreeRotationCamera.cs" />
+    <Compile Include="Legacy\EffectEngine\FXDefinitions.cs" />
+    <Compile Include="Legacy\EffectEngine\FXDescription.cs" />
+    <Compile Include="Legacy\EffectEngine\FXHelper.cs" />
+    <Compile Include="Legacy\EffectEngine\FXMainCamera.cs" />
+    <Compile Include="Legacy\EffectEngine\FXQueue.cs" />
+    <Compile Include="Legacy\EffectEngine\FXTags.cs" />
+    <Compile Include="Legacy\EffectEngine\InteractiveObjectCamera.cs" />
+    <Compile Include="Legacy\EffectEngine\PlayFXOnDieAnim.cs" />
+    <Compile Include="Legacy\EffectEngine\PostEffects\BrightnessGammaTune.cs" />
+    <Compile Include="Legacy\EffectEngine\ReboundCameraFX.cs" />
+    <Compile Include="Legacy\EffectEngine\ShakeCameraFX.cs" />
+    <Compile Include="Legacy\EffectEngine\StopFXDelayedAfterDieAnim.cs" />
+    <Compile Include="Legacy\EffectEngine\WalkCameraFX.cs" />
+    <Compile Include="Legacy\EnumUtil.cs" />
+    <Compile Include="Legacy\ExculsiveDungeonEndAmbientChange.cs" />
+    <Compile Include="Legacy\FortLaegaire_CellInteractionView.cs" />
+    <Compile Include="Legacy\Game\Logger.cs" />
+    <Compile Include="Legacy\GateExplosionEffects.cs" />
+    <Compile Include="Legacy\GUILocalize.cs" />
+    <Compile Include="Legacy\Helper.cs" />
+    <Compile Include="Legacy\HelperBuffs.cs" />
+    <Compile Include="Legacy\HelperExtensions.cs" />
+    <Compile Include="Legacy\HPBarViewData.cs" />
+    <Compile Include="Legacy\HUD\HPBarProvider.cs" />
+    <Compile Include="Legacy\HUD\HUDTextProvider.cs" />
+    <Compile Include="Legacy\HUD\MonsterBuffView.cs" />
+    <Compile Include="Legacy\HUD\PartyBuffView.cs" />
+    <Compile Include="Legacy\IMonsterTooltip.cs" />
+    <Compile Include="Legacy\IndoorNpcAnimation.cs" />
+    <Compile Include="Legacy\InteractiveObjectAnimationPlayView.cs" />
+    <Compile Include="Legacy\InteractiveObjectGenericSoundView.cs" />
+    <Compile Include="Legacy\InteractiveObjectLiquidBarrelView.cs" />
+    <Compile Include="Legacy\InteractiveObjectLookAtTarget.cs" />
+    <Compile Include="Legacy\InteractiveObjectParticlePlayView.cs" />
+    <Compile Include="Legacy\InteractiveObjectTwoStateView.cs" />
+    <Compile Include="Legacy\Lifter.cs" />
+    <Compile Include="Legacy\Loading\FinishLoadIndoorSceneEventArgs.cs" />
+    <Compile Include="Legacy\Loading\IndoorSceneLoader.cs" />
+    <Compile Include="Legacy\Loading\SceneLoader.cs" />
+    <Compile Include="Legacy\LocalResourcePathAttribute.cs" />
+    <Compile Include="Legacy\LocaManager.cs" />
+    <Compile Include="Legacy\Map\GridOrigin.cs" />
+    <Compile Include="Legacy\Map\RegionEntry.cs" />
+    <Compile Include="Legacy\Map\RegionState.cs" />
+    <Compile Include="Legacy\Map\WorldRegionController.cs" />
+    <Compile Include="Legacy\Map\WorldRegionCorridor.cs" />
+    <Compile Include="Legacy\Map\WorldRegionTrigger.cs" />
+    <Compile Include="Legacy\Map\WorldRegion_LODObject.cs" />
+    <Compile Include="Legacy\Map\WorldRegion_RegionPrefabCreator.cs" />
+    <Compile Include="Legacy\MeshRotator.cs" />
+    <Compile Include="Legacy\MMGUI\GUIButtonTweenWrapper.cs" />
+    <Compile Include="Legacy\MMGUI\GUICheckboxColorizer.cs" />
+    <Compile Include="Legacy\MMGUI\GUICheckSound.cs" />
+    <Compile Include="Legacy\MMGUI\GUIController.cs" />
+    <Compile Include="Legacy\MMGUI\GUIDialog.cs" />
+    <Compile Include="Legacy\MMGUI\GUIDialogController.cs" />
+    <Compile Include="Legacy\MMGUI\GUIDialogParameters.cs" />
+    <Compile Include="Legacy\MMGUI\GUIHoverNotifier.cs" />
+    <Compile Include="Legacy\MMGUI\GUIHUDText.cs" />
+    <Compile Include="Legacy\MMGUI\GUIMainCamera.cs" />
+    <Compile Include="Legacy\MMGUI\GUIMultiColorSpriteButton.cs" />
+    <Compile Include="Legacy\MMGUI\GUIMultiSpriteButton.cs" />
+    <Compile Include="Legacy\MMGUI\GUIScrollBar.cs" />
+    <Compile Include="Legacy\MMGUI\GUITabView.cs" />
+    <Compile Include="Legacy\MMGUI\GUITextureMonochrome.cs" />
+    <Compile Include="Legacy\MMInput\EHotkeyType.cs" />
+    <Compile Include="Legacy\MMInput\Hotkey.cs" />
+    <Compile Include="Legacy\MMInput\HotkeyEventArgs.cs" />
+    <Compile Include="Legacy\MMInput\InputManager.cs" />
+    <Compile Include="Legacy\MoveToPlayerPosition.cs" />
+    <Compile Include="Legacy\NpcInteraction\IndoorSceneRoot.cs" />
+    <Compile Include="Legacy\OrientedBoundingBox.cs" />
+    <Compile Include="Legacy\PlaySoundOnAwake.cs" />
+    <Compile Include="Legacy\PlaySoundOnDestroy.cs" />
+    <Compile Include="Legacy\PortalRenderer.cs" />
+    <Compile Include="Legacy\PrefabContainerViewGenericTwoState.cs" />
+    <Compile Include="Legacy\PrefabContainerViewRestoreObject.cs" />
+    <Compile Include="Legacy\PrefabContainerViewSpawnEffect.cs" />
+    <Compile Include="Legacy\PrefabContainerViewTwoObjects.cs" />
+    <Compile Include="Legacy\ProjectileDublicator.cs" />
+    <Compile Include="Legacy\RechargeObjectSoundView.cs" />
+    <Compile Include="Legacy\SceneEventView_ColorTrigger.cs" />
+    <Compile Include="Legacy\SceneEventView_FluteRiddleCrystal.cs" />
+    <Compile Include="Legacy\SceneEventView_FluteRiddleMelodySequence.cs" />
+    <Compile Include="Legacy\SceneEventView_SplineMover.cs" />
+    <Compile Include="Legacy\SceneEventView_TriggerAnimation.cs" />
+    <Compile Include="Legacy\SceneEventView_TwoObjects.cs" />
+    <Compile Include="Legacy\SimpleAnimQueue.cs" />
+    <Compile Include="Legacy\Singleton.cs" />
+    <Compile Include="Legacy\SingletonLazy.cs" />
+    <Compile Include="Legacy\SkyBoxRotator.cs" />
+    <Compile Include="Legacy\SummerPalaceCryptStatue.cs" />
+    <Compile Include="Legacy\TerrainSetNeigbours.cs" />
+    <Compile Include="Legacy\TerrainTools\TerrainDetailMapper.cs" />
+    <Compile Include="Legacy\TerrainTools\TerrainMapper.cs" />
+    <Compile Include="Legacy\TerrainTools\TerrainObjectMapper.cs" />
+    <Compile Include="Legacy\TerrainTools\TerrainObjectMapperBase.cs" />
+    <Compile Include="Legacy\TerrainTools\TerrainTreeMapper.cs" />
+    <Compile Include="Legacy\TimeOfDay\CloudParameters.cs" />
+    <Compile Include="Legacy\TimeOfDay\CycleParameters.cs" />
+    <Compile Include="Legacy\TimeOfDay\DayParameters.cs" />
+    <Compile Include="Legacy\TimeOfDay\MoonParameters.cs" />
+    <Compile Include="Legacy\TimeOfDay\NightParameters.cs" />
+    <Compile Include="Legacy\TimeOfDay\Sky.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkyAnimation.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkyCamera.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkyLine.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkyMoon.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkySatellite.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkySun.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkyTime.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkyWaterCamera.cs" />
+    <Compile Include="Legacy\TimeOfDay\SkyWeather.cs" />
+    <Compile Include="Legacy\TimeOfDay\SunParameters.cs" />
+    <Compile Include="Legacy\TimeOfDay\WorldParameters.cs" />
+    <Compile Include="Legacy\ToggleByColliderTrigger.cs" />
+    <Compile Include="Legacy\TooltipAttribute.cs" />
+    <Compile Include="Legacy\TrapEffectContainerView.cs" />
+    <Compile Include="Legacy\UnityEventArgs.2.cs" />
+    <Compile Include="Legacy\UnityEventArgs.cs" />
+    <Compile Include="Legacy\UnitySingleton.cs" />
+    <Compile Include="Legacy\Utilites\CombineMeshes.cs" />
+    <Compile Include="Legacy\Utilities\AnimatedLightScripts.cs" />
+    <Compile Include="Legacy\Utilities\AnimatedLightScripts_v2.cs" />
+    <Compile Include="Legacy\Utilities\AnimateTiledTexture.cs" />
+    <Compile Include="Legacy\Utilities\AutoDestructParticleSystem.cs" />
+    <Compile Include="Legacy\Utilities\BezierSpline.cs" />
+    <Compile Include="Legacy\Utilities\BezierSplineContolPoint.cs" />
+    <Compile Include="Legacy\Utilities\CameraEnableOcclusionCulling.cs" />
+    <Compile Include="Legacy\Utilities\CameraGameObjectEventMask.cs" />
+    <Compile Include="Legacy\Utilities\CameraObliqueFrustum.cs" />
+    <Compile Include="Legacy\Utilities\CameraPerLayerDistanceCulling.cs" />
+    <Compile Include="Legacy\Utilities\CameraSplineControl.cs" />
+    <Compile Include="Legacy\Utilities\DebugUtil.cs" />
+    <Compile Include="Legacy\Utilities\DelayParticleSystem.cs" />
+    <Compile Include="Legacy\Utilities\DontDestroyOnLoad.cs" />
+    <Compile Include="Legacy\Utilities\EnableOnPlayScript.cs" />
+    <Compile Include="Legacy\Utilities\Explosion.cs" />
+    <Compile Include="Legacy\Utilities\FlickeringLightScript.cs" />
+    <Compile Include="Legacy\Utilities\FXDisableGameObject.cs" />
+    <Compile Include="Legacy\Utilities\FXEndLightTween.cs" />
+    <Compile Include="Legacy\Utilities\FXGroundPositioning.cs" />
+    <Compile Include="Legacy\Utilities\FXStopAutoDestructParticleSystem.cs" />
+    <Compile Include="Legacy\Utilities\FXTagPositioning.cs" />
+    <Compile Include="Legacy\Utilities\GlowingLight.cs" />
+    <Compile Include="Legacy\Utilities\LavaFontaineScript.cs" />
+    <Compile Include="Legacy\Utilities\LightSequenceScript.cs" />
+    <Compile Include="Legacy\Utilities\LightTween.cs" />
+    <Compile Include="Legacy\Utilities\NoiseMovementScript.cs" />
+    <Compile Include="Legacy\Utilities\ParticleFreeze.cs" />
+    <Compile Include="Legacy\Utilities\PAXCutsceneIronGate.cs" />
+    <Compile Include="Legacy\Utilities\Perlin.cs" />
+    <Compile Include="Legacy\Utilities\PerlinNoiseParticleLine.cs" />
+    <Compile Include="Legacy\Utilities\ProjectorTween.cs" />
+    <Compile Include="Legacy\Utilities\ProjectorTweenAlphaTween.cs" />
+    <Compile Include="Legacy\Utilities\RandomTimedParticleSystem.cs" />
+    <Compile Include="Legacy\Utilities\ResourceLink.cs" />
+    <Compile Include="Legacy\Utilities\RimShaderAngleSetter.cs" />
+    <Compile Include="Legacy\Utilities\TerrainTreeRenderer.cs" />
+    <Compile Include="Legacy\Utilities\TimedDestructParticleSystem.cs" />
+    <Compile Include="Legacy\Views\AbilityViewMonster.cs" />
+    <Compile Include="Legacy\Views\BaseView.cs" />
+    <Compile Include="Legacy\Views\BuffViewBase.cs" />
+    <Compile Include="Legacy\Views\BuffViewMonster.cs" />
+    <Compile Include="Legacy\Views\BuffViewParty.cs" />
+    <Compile Include="Legacy\Views\ChestView.cs" />
+    <Compile Include="Legacy\Views\CombatViewBase.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneCommunityBoss.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneCrystalSpiderEntrance.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneExclusiveDungeon.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneFortLaegaireGuard.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneIven.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneMamushi.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneMarkusWolfEntrance.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutscenePaoKaiEntrance.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneSceenText.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneTaralethFlyby.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneTaralethLand.cs" />
+    <Compile Include="Legacy\Views\Cutscenes\CutsceneView.cs" />
+    <Compile Include="Legacy\Views\DiscoverHighlightViewBase.cs" />
+    <Compile Include="Legacy\Views\DoorView.cs" />
+    <Compile Include="Legacy\Views\EntityDisappearSalvinSuicideView.cs" />
+    <Compile Include="Legacy\Views\EntityDisappearViewAnimFX.cs" />
+    <Compile Include="Legacy\Views\EntityDisappearViewSinking.cs" />
+    <Compile Include="Legacy\Views\EntityDisappearViewSinkingEarthLord.cs" />
+    <Compile Include="Legacy\Views\EntityDisappearViewSphere.cs" />
+    <Compile Include="Legacy\Views\EntityPositioning.cs" />
+    <Compile Include="Legacy\Views\ErebosSummonFX.cs" />
+    <Compile Include="Legacy\Views\ErebosView.cs" />
+    <Compile Include="Legacy\Views\FloatingObjectVerticalView.cs" />
+    <Compile Include="Legacy\Views\FortLaegaire_BallistaView.cs" />
+    <Compile Include="Legacy\Views\IMoveable.cs" />
+    <Compile Include="Legacy\Views\IndoorNPCView.cs" />
+    <Compile Include="Legacy\Views\InteractiveObjectHighlight.cs" />
+    <Compile Include="Legacy\Views\InteractiveObjectView.cs" />
+    <Compile Include="Legacy\Views\ISummonMovementTiming.cs" />
+    <Compile Include="Legacy\Views\LargeLevelEntityView.cs" />
+    <Compile Include="Legacy\Views\LevelEntityBoneChangeDieView.cs" />
+    <Compile Include="Legacy\Views\LevelEntityCombatView.cs" />
+    <Compile Include="Legacy\Views\LevelEntityDieView.cs" />
+    <Compile Include="Legacy\Views\LevelEntityDieViewChangeModel.cs" />
+    <Compile Include="Legacy\Views\LevelEntityFXDieView.cs" />
+    <Compile Include="Legacy\Views\LevelEntityMatyrDieView.cs" />
+    <Compile Include="Legacy\Views\LevelEntityMetadata.cs" />
+    <Compile Include="Legacy\Views\LevelEntityMultiFXDieView.cs" />
+    <Compile Include="Legacy\Views\LevelEntitySpellView.cs" />
+    <Compile Include="Legacy\Views\LevelEntityView.cs" />
+    <Compile Include="Legacy\Views\LeverView.cs" />
+    <Compile Include="Legacy\Views\LootBagView.cs" />
+    <Compile Include="Legacy\Views\MamushiAbilityView.cs" />
+    <Compile Include="Legacy\Views\MonsterCombatView.cs" />
+    <Compile Include="Legacy\Views\MonsterDieView.cs" />
+    <Compile Include="Legacy\Views\MonsterDisappearView.cs" />
+    <Compile Include="Legacy\Views\MonsterEntityView.cs" />
+    <Compile Include="Legacy\Views\MonsterHPBarView.cs" />
+    <Compile Include="Legacy\Views\MonsterSCTView.cs" />
+    <Compile Include="Legacy\Views\MonsterSpecialDieView.cs" />
+    <Compile Include="Legacy\Views\MonsterSpellView.cs" />
+    <Compile Include="Legacy\Views\NpcContainerView.cs" />
+    <Compile Include="Legacy\Views\NpcContainerViewAlphaFade.cs" />
+    <Compile Include="Legacy\Views\NPCContainerView_WithDisappearEffect.cs" />
+    <Compile Include="Legacy\Views\OnSummonMoveFinishedCallback.cs" />
+    <Compile Include="Legacy\Views\PlatformView.cs" />
+    <Compile Include="Legacy\Views\PlayerCombatView.cs" />
+    <Compile Include="Legacy\Views\PlayerEntityView.cs" />
+    <Compile Include="Legacy\Views\PlayerSpellView.cs" />
+    <Compile Include="Legacy\Views\PortraitFXView.cs" />
+    <Compile Include="Legacy\Views\PositioningTemplate.cs" />
+    <Compile Include="Legacy\Views\PrefabAnimatorFXSummon.cs" />
+    <Compile Include="Legacy\Views\PrefabAnimBasedSpawnView.cs" />
+    <Compile Include="Legacy\Views\PrefabAnimBasedStateSwitchView.cs" />
+    <Compile Include="Legacy\Views\PrefabConainer_LaegaireGuardsView.cs" />
+    <Compile Include="Legacy\Views\PrefabContainerBaseView.cs" />
+    <Compile Include="Legacy\Views\PrefabContainerWorldView.cs" />
+    <Compile Include="Legacy\Views\SecretDoorView.cs" />
+    <Compile Include="Legacy\Views\SecretView.cs" />
+    <Compile Include="Legacy\Views\SpecialDieView.cs" />
+    <Compile Include="Legacy\Views\SummonMovementTimingView.cs" />
+    <Compile Include="Legacy\Views\SummonView.cs" />
+    <Compile Include="Legacy\Views\SwitchView.cs" />
+    <Compile Include="Legacy\Views\TrapView.cs" />
+    <Compile Include="Legacy\Views\ViewManager.cs" />
+    <Compile Include="Legacy\WaterWheelAnim.cs" />
+    <Compile Include="Legacy\WorldRegion_TriggerBasedLODObject.cs" />
+    <Compile Include="Legacy\World\DaytimeDependentBase.cs" />
+    <Compile Include="Legacy\World\DaytimeDependentController.cs" />
+    <Compile Include="Legacy\World\SpiritBeaconController.cs" />
+    <Compile Include="Legacy\XEventArgs.cs" />
+    <Compile Include="Legacy\XUnityEventArgs.cs" />
+    <Compile Include="LiquidMembranePostFX.cs" />
+    <Compile Include="MeleeWeaponTrail.cs" />
+    <Compile Include="NGUIDebug.cs" />
+    <Compile Include="NGUIMath.cs" />
+    <Compile Include="NGUITools.cs" />
+    <Compile Include="ObjectPoolController.cs" />
+    <Compile Include="PoolableObject.cs" />
+    <Compile Include="PoolableReference.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedrawCamera.cs" />
+    <Compile Include="RedrawCameraGlow.cs" />
+    <Compile Include="RegisteredComponent.cs" />
+    <Compile Include="RegisteredComponentController.cs" />
+    <Compile Include="RootMotionComputer.cs" />
+    <Compile Include="SingletonMonoBehaviour.cs" />
+    <Compile Include="SplineCameraMover.cs" />
+    <Compile Include="SplineController.cs" />
+    <Compile Include="SplineMover.cs" />
+    <Compile Include="SplineSegment.cs" />
+    <Compile Include="SpringPanel.cs" />
+    <Compile Include="SpringPosition.cs" />
+    <Compile Include="SystemTime.cs" />
+    <Compile Include="TerrainSingleTreePlacer.cs" />
+    <Compile Include="TextureDepth.cs" />
+    <Compile Include="TweenAlpha.cs" />
+    <Compile Include="TweenColor.cs" />
+    <Compile Include="TweenFOV.cs" />
+    <Compile Include="TweenOrthoSize.cs" />
+    <Compile Include="TweenPosition.cs" />
+    <Compile Include="TweenRotation.cs" />
+    <Compile Include="TweenScale.cs" />
+    <Compile Include="TweenTransform.cs" />
+    <Compile Include="TweenVolume.cs" />
+    <Compile Include="UIAnchor.cs" />
+    <Compile Include="UIAtlas.cs" />
+    <Compile Include="UIButton.cs" />
+    <Compile Include="UIButtonActivate.cs" />
+    <Compile Include="UIButtonColor.cs" />
+    <Compile Include="UIButtonKeyBinding.cs" />
+    <Compile Include="UIButtonKeys.cs" />
+    <Compile Include="UIButtonMessage.cs" />
+    <Compile Include="UIButtonOffset.cs" />
+    <Compile Include="UIButtonPlayAnimation.cs" />
+    <Compile Include="UIButtonRotation.cs" />
+    <Compile Include="UIButtonScale.cs" />
+    <Compile Include="UIButtonSound.cs" />
+    <Compile Include="UIButtonTween.cs" />
+    <Compile Include="UICamera.cs" />
+    <Compile Include="UICenterOnChild.cs" />
+    <Compile Include="UICheckbox.cs" />
+    <Compile Include="UICheckboxControlledComponent.cs" />
+    <Compile Include="UICheckboxControlledObject.cs" />
+    <Compile Include="UIDragCamera.cs" />
+    <Compile Include="UIDraggableCamera.cs" />
+    <Compile Include="UIDraggablePanel.cs" />
+    <Compile Include="UIDragObject.cs" />
+    <Compile Include="UIDragPanelContents.cs" />
+    <Compile Include="UIDrawCall.cs" />
+    <Compile Include="UIEventListener.cs" />
+    <Compile Include="UIFilledSprite.cs" />
+    <Compile Include="UIFollowTarget.cs" />
+    <Compile Include="UIFont.cs" />
+    <Compile Include="UIForwardEvents.cs" />
+    <Compile Include="UIGeometry.cs" />
+    <Compile Include="UIGrid.cs" />
+    <Compile Include="UIImageButton.cs" />
+    <Compile Include="UIInput.cs" />
+    <Compile Include="UIInputSaved.cs" />
+    <Compile Include="UIInputValidator.cs" />
+    <Compile Include="UILabel.cs" />
+    <Compile Include="UIOrthoCamera.cs" />
+    <Compile Include="UIPanel.cs" />
+    <Compile Include="UIPopupList.cs" />
+    <Compile Include="UIRoot.cs" />
+    <Compile Include="UISavedOption.cs" />
+    <Compile Include="UIScrollBar.cs" />
+    <Compile Include="UISlicedSprite.cs" />
+    <Compile Include="UISlider.cs" />
+    <Compile Include="UISliderColors.cs" />
+    <Compile Include="UISoundVolume.cs" />
+    <Compile Include="UISprite.cs" />
+    <Compile Include="UISpriteAnimation.cs" />
+    <Compile Include="UIStretch.cs" />
+    <Compile Include="UIStretchedAndScaled.cs" />
+    <Compile Include="UITable.cs" />
+    <Compile Include="UITextList.cs" />
+    <Compile Include="UITexture.cs" />
+    <Compile Include="UITiledSprite.cs" />
+    <Compile Include="UITooltip.cs" />
+    <Compile Include="UITweener.cs" />
+    <Compile Include="UIViewport.cs" />
+    <Compile Include="UIWidget.cs" />
+    <Compile Include="UnitySingleton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Legacy.Core\Legacy.Core.csproj">
+      <Project>{dfddac30-ef12-4ed3-a35d-02fb4438092f}</Project>
+      <Name>Legacy.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Deploy SolutionDir="$(SolutionDir)" TargetPath="$(TargetPath)" TargetDir="$(TargetDir)" TargetName="$(TargetName)" />
+  </Target>
+</Project>

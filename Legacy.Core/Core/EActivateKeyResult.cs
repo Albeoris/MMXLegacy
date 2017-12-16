@@ -1,0 +1,14 @@
+﻿using System;
+
+namespace Legacy.Core
+{
+	public enum EActivateKeyResult
+	{
+		ACTIVATE_WAITING = -1,
+		ACTIVATE_SUCCESSFUL,
+		ACTIVATE_INVALID_KEY,
+		ACTIVATE_KEY_ALREADY_IN_USE,
+		ACTIVATE_WRONG_PRIVILAGE,
+		ACTIVATE_UNEXPECTED_ERROR
+	}
+}

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <UsingTask AssemblyFile="$(SolutionDir)\References\Legacy.MSBuild.dll" TaskName="Legacy.MSBuild.Deploy" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5572C580-8699-4B4B-B3CB-1140AF644D02}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Assembly-CSharp</RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <FrameworkPathOverride>$(SolutionDir)\References\</FrameworkPathOverride>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>CS0414;CS0649;CS0169;CS0108;CS0618</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\References\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-UnityScript-firstpass">
+      <HintPath>..\References\Assembly-UnityScript-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AntialiasingQuality.cs" />
+    <Compile Include="AutoRotator.cs" />
+    <Compile Include="BloomC.cs" />
+    <Compile Include="BlurEffectC.cs" />
+    <Compile Include="Boltmovement1.cs" />
+    <Compile Include="BuffGlowEffect.cs" />
+    <Compile Include="CameraLookAt.cs" />
+    <Compile Include="ChangeTonemappingForEffect.cs" />
+    <Compile Include="ColorCorrection.cs" />
+    <Compile Include="ColorCorrectionCurvesC.cs" />
+    <Compile Include="ColorCorrectionEffectBlend.cs" />
+    <Compile Include="ColorCorrectionLutStatic.cs" />
+    <Compile Include="ColormapPaintingToolU4.cs" />
+    <Compile Include="CrushingWeight.cs" />
+    <Compile Include="CrushingWeightLanding.cs" />
+    <Compile Include="CustomTerrainScriptColorMapUltraU4.cs" />
+    <Compile Include="CutsceneTools\BlackDragonLandAnimation.cs" />
+    <Compile Include="DarkVision.cs" />
+    <Compile Include="DeactivateLutForEffect.cs" />
+    <Compile Include="DetachChild.cs" />
+    <Compile Include="DoubleViewEffect.cs" />
+    <Compile Include="EdgeDetectionEffect.cs" />
+    <Compile Include="ETarget.cs" />
+    <Compile Include="exploForce.cs" />
+    <Compile Include="GlobalFogC.cs" />
+    <Compile Include="Legacy\PlayDarkNova_ErebosCutScene.cs" />
+    <Compile Include="Legacy\PlayParticleSystemOnAnimationEvent.cs" />
+    <Compile Include="LigthningAtlasChanger.cs" />
+    <Compile Include="MeshTerrainBlendingTool.cs" />
+    <Compile Include="OnCollisionSpawnSmallerParts.cs" />
+    <Compile Include="OnDestroySpawnPrefab.cs" />
+    <Compile Include="OverlayLightEffect.cs" />
+    <Compile Include="ParticalToFadeOut.cs" />
+    <Compile Include="Pixelation.cs" />
+    <Compile Include="PlayAnimBackwards.cs" />
+    <Compile Include="PlayThisParticleSystemFaster.cs" />
+    <Compile Include="PostEffectsBaseC.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Push.cs" />
+    <Compile Include="RadiantWeapon.cs" />
+    <Compile Include="Rot1.cs" />
+    <Compile Include="RotateAround.cs" />
+    <Compile Include="Scale_this.cs" />
+    <Compile Include="Shrapnel1.cs" />
+    <Compile Include="SmoothCameraOrbit.cs" />
+    <Compile Include="StartEndLerper.cs" />
+    <Compile Include="Stop_Emit_Timed.cs" />
+    <Compile Include="SummonDoFadeOut.cs" />
+    <Compile Include="TestAnimatorControl.cs" />
+    <Compile Include="TestCamera.cs" />
+    <Compile Include="TestCameraFxRemover.cs" />
+    <Compile Include="TestCameraWindow.cs" />
+    <Compile Include="TestDatabase.cs" />
+    <Compile Include="TestHUD.cs" />
+    <Compile Include="TestMain.cs" />
+    <Compile Include="TestMonster.cs" />
+    <Compile Include="TestSpell.cs" />
+    <Compile Include="TestWindow.cs" />
+    <Compile Include="turn.cs" />
+    <Compile Include="TwineAnimConfig.cs" />
+    <Compile Include="VeilOfConfusion1.cs" />
+    <Compile Include="VeilOfDoom1.cs" />
+    <Compile Include="VeilOfFatigue1.cs" />
+    <Compile Include="VolleyOfBolts1.cs" />
+    <Compile Include="WindswordDashMotionBlur.cs" />
+    <Compile Include="ZoneEffectController.cs" />
+    <Compile Include="ZoneEffectManipulator.cs" />
+    <Compile Include="ZoneEffectSetting.cs" />
+    <Compile Include="ZoneEffectTargetCamera.cs" />
+    <Compile Include="ZoneEffectTrigger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Assembly-CSharp-firstpass\Assembly-CSharp-firstpass.csproj">
+      <Project>{ebd03113-4882-495d-9dbc-6ffc2c575133}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Legacy.Core\Legacy.Core.csproj">
+      <Project>{dfddac30-ef12-4ed3-a35d-02fb4438092f}</Project>
+      <Name>Legacy.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Legacy.Framework\Legacy.Framework.csproj">
+      <Project>{bc1c1d12-eeed-4c52-9563-c1fbce9cea19}</Project>
+      <Name>Legacy.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Deploy SolutionDir="$(SolutionDir)" TargetPath="$(TargetPath)" TargetDir="$(TargetDir)" TargetName="$(TargetName)" />
+  </Target>
+</Project>
