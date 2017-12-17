@@ -45,7 +45,23 @@ namespace Dumper.Core
 			return null;
 		}
 
-		public void Serialize(Stream stream, Array obj)
+	    public void Deserialize<T>(Stream stream, Dictionary<Int32, T> output)
+	    {
+	        List<String[]> list = CsvHelper.Parse(stream);
+	        CsvHelper.Cleanup(list);
+	        if (list.Count > 1)
+	        {
+	            Int32 i;
+	            for (i = 0; i < list.Count; i++)
+	            {
+	                if (list[i] != null && !CsvHelper.IsComment(list[i]))
+	                    break;
+	            }
+	            Deserialize<T>(list[i], list, i + 1, output);
+	        }
+        }
+
+        public void Serialize(Stream stream, Array obj)
 		{
 			throw new NotImplementedException();
 		}
@@ -76,25 +92,46 @@ namespace Dumper.Core
 			}
 		}
 
-		private Array Deserialize(String[] columns, List<String[]> values, Int32 valueOffset)
+		private void Deserialize<T>(String[] columns, List<String[]> values, Int32 valueOffset, Dictionary<Int32, T> output)
 		{
 			FieldInfo[] columns2 = FindColumnInfos(columns);
-			ArrayList arrayList = new ArrayList(values.Count - valueOffset);
 			for (Int32 i = valueOffset; i < values.Count; i++)
 			{
-				if (values[i] != null && !CsvHelper.IsComment(values[i]))
-				{
-					Object obj = Activator.CreateInstance(mObjectType);
-					SetFieldValues(i + 1, obj, columns2, values[i]);
-					arrayList.Add(obj);
+			    String[] data = values[i];
+                if (data != null && !CsvHelper.IsComment(data))
+                {
+                    Int32 staticId = Int32.Parse(data[0], CultureInfo.InvariantCulture);
+
+                    if (!output.TryGetValue(staticId, out var obj))
+                    {
+                        obj = (T)Activator.CreateInstance(mObjectType);
+                        output.Add(staticId, obj);
+                    }
+
+                    SetFieldValues(i + 1, obj, columns2, data);
 				}
 			}
-			Array array = Array.CreateInstance(mObjectType, arrayList.Count);
-			arrayList.CopyTo(array);
-			return array;
 		}
 
-		private void SetFieldValues(Int32 lineNum, Object instance, FieldInfo[] columns, String[] columnValues)
+	    private Array Deserialize(String[] columns, List<String[]> values, Int32 valueOffset)
+	    {
+	        FieldInfo[] columns2 = FindColumnInfos(columns);
+	        ArrayList arrayList = new ArrayList(values.Count - valueOffset);
+	        for (Int32 i = valueOffset; i < values.Count; i++)
+	        {
+	            if (values[i] != null && !CsvHelper.IsComment(values[i]))
+	            {
+	                Object obj = Activator.CreateInstance(mObjectType);
+	                SetFieldValues(i + 1, obj, columns2, values[i]);
+	                arrayList.Add(obj);
+	            }
+	        }
+	        Array array = Array.CreateInstance(mObjectType, arrayList.Count);
+	        arrayList.CopyTo(array);
+	        return array;
+	    }
+
+        private void SetFieldValues(Int32 lineNum, Object instance, FieldInfo[] columns, String[] columnValues)
 		{
 			for (Int32 i = 0; i < columns.Length; i++)
 			{

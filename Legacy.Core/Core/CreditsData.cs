@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Legacy.Core.StaticData;
+using Legacy.Utilities;
 
 namespace Legacy.Core
 {
-	public class CreditsData
-	{
+	public class CreditsData : IXmlStaticData
+    {
 		[XmlAttribute("name")]
 		public String m_head;
 
@@ -37,5 +39,10 @@ namespace Legacy.Core
 			[XmlAttribute("name")]
 			public String m_name;
 		}
-	}
+
+        public void Update(IXmlStaticData additionalData)
+        {
+            LegacyLogger.LogError("The method Update of the type CreditsData isn't implemented.");
+        }
+    }
 }

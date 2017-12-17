@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Xml.Serialization;
 using Legacy.Core.Entities.Items;
 using Legacy.Core.Entities.Skills;
@@ -7,6 +10,7 @@ using Legacy.Core.NpcInteraction.Conditions;
 using Legacy.Core.NpcInteraction.Functions;
 using Legacy.Core.PartyManagement;
 using Legacy.Core.Spells.CharacterSpells;
+using Legacy.Utilities;
 
 namespace Legacy.Core.StaticData
 {
@@ -81,8 +85,9 @@ namespace Legacy.Core.StaticData
 	[XmlInclude(typeof(ForceSolveQuestFunction))]
 	[XmlInclude(typeof(GameOverFunction))]
 	[XmlInclude(typeof(SkillLearnedCondition))]
-	public class NpcConversationStaticData
-	{
+	[XmlInclude(typeof(DialogEntryInjection))]
+    public class NpcConversationStaticData : IXmlStaticData
+    {
 		[XmlAttribute("rootDialogID")]
 		public Int32 m_rootDialogID;
 
@@ -98,7 +103,7 @@ namespace Legacy.Core.StaticData
 		[XmlElement("bookmark")]
 		public DialogBookmark[] m_bookmarks;
 
-		public struct Dialog
+		public class Dialog
 		{
 			[XmlAttribute("id")]
 			public Int32 m_id;
@@ -129,6 +134,63 @@ namespace Legacy.Core.StaticData
 
 			[XmlAttribute("backToDialodId")]
 			public Int32 m_backToDialodId;
+
+		    public void Update(Dialog newDialog)
+		    {
+                if (newDialog.m_entries == null || newDialog.m_entries.Length == 0)
+		            return; // Not implemented
+
+                var result = new LinkedList<DialogEntry>(m_entries);
+		        var current = new Dictionary<String, LinkedListNode<DialogEntry>>(m_entries.Length);
+
+                if (result.Count > 0)
+                {
+                    for (var node = result.First; node != null; node = node.Next)
+                        current[node.Value.GetKeyFromText()] = node;
+                }
+
+                foreach (DialogEntry ent in newDialog.m_entries)
+                {
+                    DialogEntry entry = ent;
+                    if (entry.m_injection == null)
+                    {
+                        result.AddLast(entry);
+                    }
+                    else
+                    {
+                        // Remove injection to avoid memory growing
+                        DialogEntryInjection injection = entry.m_injection;
+                        entry.m_injection = null;
+
+                        LinkedListNode<DialogEntry> node;
+                        if (current.TryGetValue(injection.TextKey, out node))
+                        {
+                            switch (injection.InjectionType)
+                            {
+                                case EDialogInjectionType.InsertAfter:
+                                    result.AddAfter(node, entry);
+                                    break;
+                                case EDialogInjectionType.InsertBefore:
+                                    result.AddBefore(node, entry);
+                                    break;
+                                case EDialogInjectionType.Replace:
+                                    result.AddAfter(node, entry);
+                                    result.Remove(node);
+                                    break;
+                                default:
+                                    throw new NotImplementedException(injection.InjectionType.ToString());
+                            }
+                        }
+                        else
+                        {
+                            result.AddLast(entry);
+                            LegacyLogger.LogError($"Cannot find injection target [{injection.TextKey}] in the dialog.");
+                        }
+                    }
+                }
+
+                m_entries = result.ToArray();
+		    }
 		}
 
 		public struct DialogFeature
@@ -226,6 +288,29 @@ namespace Legacy.Core.StaticData
 
 			[XmlElement("condition")]
 			public DialogCondition[] m_conditions;
+
+		    [XmlElement("injection")]
+		    public DialogEntryInjection m_injection;
+
+		    public String GetKeyFromText()
+		    {
+		        if (m_texts == null)
+		            return "NULL";
+		        if (m_texts.Length == 0)
+		            return "EMPTY";
+		        if (m_texts.Length == 1)
+		            return m_texts[0].m_locaKey;
+
+		        StringBuilder sb = new StringBuilder(m_texts.Length * 16);
+		        sb.Append(m_texts[0].m_locaKey);
+		        for (Int32 i = 1; i < m_texts.Length; i++)
+		        {
+		            sb.Append(';');
+		            sb.Append(m_texts[i].m_locaKey);
+		        }
+
+		        return sb.ToString();
+		    }
 		}
 
 		public struct DialogText
@@ -272,5 +357,30 @@ namespace Legacy.Core.StaticData
 			[XmlAttribute("icon")]
 			public String m_icon;
 		}
-	}
+
+        public void Update(IXmlStaticData additionalData)
+        {
+            NpcConversationStaticData other = (NpcConversationStaticData)additionalData;
+            if (other.m_dialogs != null)
+            {
+                Dictionary<Int32, Dialog> current = m_dialogs.ToDictionary(d => d.m_id);
+                Dialog[] updated = other.m_dialogs;
+
+                List<Dialog> result = new List<Dialog>(current.Count + updated.Length);
+                result.AddRange(m_dialogs);
+
+                foreach (Dialog newDialog in updated)
+                {
+                    Dialog oldDialog;
+                    if (current.TryGetValue(newDialog.m_id, out oldDialog))
+                        oldDialog.Update(newDialog);
+                    else
+                        result.Add(newDialog);
+                }
+
+                if (result.Count > m_dialogs.Length)
+                    m_dialogs = result.ToArray();
+            }
+        }
+    }
 }

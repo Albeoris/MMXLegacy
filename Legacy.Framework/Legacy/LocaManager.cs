@@ -182,7 +182,6 @@ namespace Legacy
 		{
 			LanguageConfig languageConfig = null;
 			LanguageConfig languageConfig2 = null;
-			String path = Path.Combine(Application.streamingAssetsPath, LOCA_FOLDER);
 			foreach (LanguageConfig languageConfig3 in m_Configs)
 			{
 				if (languageConfig3.m_Language == SystemLanguage.English)
@@ -194,29 +193,20 @@ namespace Legacy
 					languageConfig2 = languageConfig3;
 				}
 			}
-			if (languageConfig != null)
+
+		    String localistationFolder = Path.Combine(Application.streamingAssetsPath, LOCA_FOLDER);
+
+            if (languageConfig != null)
 			{
 				Localization.Instance.ClearFallBackContent();
-				foreach (String path2 in languageConfig.m_LocaFiles)
-				{
-					String text = Path.Combine(path, path2);
-					if (File.Exists(text))
-					{
-						Localization.Instance.LoadFallback(text);
-					}
-				}
+				foreach (String path2 in EnumerateLanguageFiles(localistationFolder, languageConfig))
+				    Localization.Instance.LoadFallback(path2);
 			}
 			if (languageConfig2 != null)
 			{
 				Localization.Instance.ClearContent();
-				foreach (String path3 in languageConfig2.m_LocaFiles)
-				{
-					String text2 = Path.Combine(path, path3);
-					if (File.Exists(text2))
-					{
-						Localization.Instance.LoadLanguage(text2);
-					}
-				}
+				foreach (String path3 in EnumerateLanguageFiles(localistationFolder, languageConfig2))
+				    Localization.Instance.LoadLanguage(path3);
 			}
 			LoadFonts();
 			if (languageConfig2 == null)
@@ -226,7 +216,30 @@ namespace Legacy
 			RaiseLocaChangedEvent();
 		}
 
-		private void LoadFonts()
+	    private IEnumerable<String> EnumerateLanguageFiles(String localisationFolder, LanguageConfig config)
+	    {
+	        HashSet<String> processedFiles = new HashSet<String>();
+	        HashSet<String> processedDirectories = new HashSet<String>();
+	        foreach (String relativePath in config.m_LocaFiles)
+	        {
+	            String path = Path.Combine(localisationFolder, relativePath);
+	            String fullPath = Path.GetFullPath(path);
+	            if (File.Exists(fullPath) && processedFiles.Add(fullPath))
+	            {
+	                processedDirectories.Add(Path.GetDirectoryName(fullPath));
+	                yield return fullPath;
+	            }
+	        }
+
+	        foreach (String directoryPath in processedDirectories)
+	        foreach (String filePath in Directory.GetFiles(directoryPath, "*.xml", SearchOption.AllDirectories))
+	        {
+	            if (processedFiles.Add(filePath))
+	                yield return filePath;
+	        }
+	    }
+
+	    private void LoadFonts()
 		{
 			foreach (LanguageFontMap languageFontMap in m_FontMaps)
 			{
@@ -270,7 +283,6 @@ namespace Legacy
 				LanguageConfig languageConfig = null;
 				LanguageConfig languageConfig2 = null;
 				SystemLanguage systemLanguage = StringToLangID(modController.CurrentMod.DefaultLanguage);
-				String locaFolder = modController.CurrentMod.LocaFolder;
 				foreach (LanguageConfig languageConfig3 in m_Configs)
 				{
 					if (languageConfig3.m_Language == systemLanguage)
@@ -282,27 +294,18 @@ namespace Legacy
 						languageConfig2 = languageConfig3;
 					}
 				}
-				if (languageConfig != null)
+
+			    String localisationFolder = modController.CurrentMod.LocaFolder;
+
+                if (languageConfig != null)
 				{
-					foreach (String path in languageConfig.m_LocaFiles)
-					{
-						String text = Path.Combine(locaFolder, path);
-						if (File.Exists(text))
-						{
-							Localization.Instance.LoadFallback(text);
-						}
-					}
+					foreach (String path in EnumerateLanguageFiles(localisationFolder, languageConfig))
+					    Localization.Instance.LoadFallback(path);
 				}
 				if (languageConfig2 != null)
 				{
-					foreach (String path2 in languageConfig2.m_LocaFiles)
-					{
-						String text2 = Path.Combine(locaFolder, path2);
-						if (File.Exists(text2))
-						{
-							Localization.Instance.LoadLanguage(text2);
-						}
-					}
+					foreach (String path2 in EnumerateLanguageFiles(localisationFolder, languageConfig2))
+					    Localization.Instance.LoadLanguage(path2);
 				}
 				RaiseLocaChangedEvent();
 			}

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using Legacy.Core;
 using Legacy.Core.Api;
 using Legacy.Core.Entities.Items;
 using Legacy.Core.PartyManagement;
+using Legacy.Utilities;
 using UnityEngine;
 
 namespace Legacy.Game.MMGUI
@@ -127,7 +129,7 @@ namespace Legacy.Game.MMGUI
 					else
 					{
 						Consumable consumable2 = (Consumable)ItemFactory.CreateItem(consumable.GetItemType(), consumable.StaticId);
-						consumable2.PriceMultiplicator = consumable.PriceMultiplicator;
+                        consumable2.PriceMultiplicator = consumable.PriceMultiplicator;
 						m_itemContainer.Inventory.RemoveAmountOfItemAt(m_itemContainer.SelectedItem.OriginSlotIndex, 1);
 						CompleteBuyItem(p_targetInventory, consumable2, 1, p_targetSlot);
 						if (consumable.Counter <= 0)

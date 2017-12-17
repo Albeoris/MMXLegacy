@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NpcConversationStaticData rootDialogID="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<dialog id="1" randomText="false" fakeNpcID="0" >
+		<entry>
+			<text locaKey="DIALOG_OPTION_LARGO_TRAINING_MERCHANT_MASTER" />	<!-- Training: Merchant Master -->
+			<function xsi:type="GoToFunction" dialogID="1712170001" />
+			<injection xsi:type="DialogEntryInjection" type="InsertAfter" target="DIALOG_OPTION_LARGO_2" /> <!-- InsertAfter Training: Daggers Master -->
+		</entry>
+	</dialog>
+	
+<!-- Training: Merchant Master -->
+	<dialog id="1712170001" randomText="false" fakeNpcID="0">
+		<text locaKey="DIALOG_TEXT_LARGO_TRAINING_MERCHANT_MASTER_1" />	<!-- A handful of saved coins can provide a roof over your head, and a hundred lost will be killed more accurately than the sharpest blade. Do you want to save your life? -->
+	    <feature type="TRAINING" skillID="1712170001" skillRank="MASTER" price="-1" dialogID="1712170002" />
+	</dialog>
+	
+	<dialog id="1712170002" randomText="false" fakeNpcID="0">
+		<text locaKey="DIALOG_TEXT_LARGO_TRAINING_MERCHANT_MASTER_2" />	<!-- You are now a Master of Merchant.  -->
+	    <feature type="TRAINING" skillID="1712170001" skillRank="MASTER" price="-1" dialogID="1712170002" />
+	</dialog>
+</NpcConversationStaticData>

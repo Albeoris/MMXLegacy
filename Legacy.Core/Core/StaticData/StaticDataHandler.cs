@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Dumper.Core;
 using Legacy.Core.Abilities;
 using Legacy.Core.Combat;
@@ -16,36 +17,65 @@ namespace Legacy.Core.StaticData
 {
 	public static class StaticDataHandler
 	{
-		private static readonly Dictionary<Int32, BaseStaticData>[] m_staticDataMap = new Dictionary<Int32, BaseStaticData>[70];
+		private static readonly Dictionary<Int32, BaseStaticData>[] m_staticDataMap = new Dictionary<Int32, BaseStaticData>[71];
 
-		public static void LoadData<T>(EDataType p_type, String p_filePath) where T : BaseStaticData
-		{
-			using (FileStream fileStream = File.OpenRead(p_filePath))
-			{
-				T[] array = CSVParser<T>.Deserialize(fileStream);
-				Dictionary<Int32, BaseStaticData> dictionary = m_staticDataMap[(Int32)p_type] = new Dictionary<Int32, BaseStaticData>(array.Length);
-				for (Int32 i = 0; i < array.Length; i++)
-				{
-					if (!dictionary.ContainsKey(array[i].StaticID))
-					{
-						array[i].PostDeserialization();
-						dictionary.Add(array[i].StaticID, array[i]);
-					}
-					else
-					{
-						LegacyLogger.Log(String.Concat(new Object[]
-						{
-							"StaticData already loaded; SID=",
-							array[i].StaticID,
-							"; Type=",
-							p_type
-						}));
-					}
-				}
-			}
-		}
+	    public static void LoadData<T>(EDataType p_type, String p_filePath) where T : BaseStaticData
+	    {
+	        T[] array;
+	        if (File.Exists(p_filePath))
+	        {
+	            using (FileStream fileStream = File.OpenRead(p_filePath))
+	                array = CSVParser<T>.Deserialize(fileStream);
+	        }
+            else
+	        {
+	            array = new T[0];
+	        }
 
-		public static T GetStaticData<T>(EDataType p_type, Int32 p_staticId) where T : BaseStaticData
+	        Dictionary<Int32, T> dic = new Dictionary<Int32, T>(array.Length);
+	        foreach (T item in array)
+	        {
+	            if (!dic.ContainsKey(item.StaticID))
+	            {
+	                item.PostDeserialization();
+	                dic.Add(item.StaticID, item);
+	            }
+	            else
+	            {
+	                LegacyLogger.Log(String.Concat(new Object[]
+	                {
+	                    "StaticData already loaded; SID=",
+	                    item.StaticID,
+	                    "; Type=",
+	                    p_type
+	                }));
+	            }
+	        }
+
+	        String directory = Path.GetDirectoryName(p_filePath);
+	        if (directory != null)
+	        {
+	            String mask = Path.ChangeExtension(Path.GetFileName(p_filePath), null) + "_*.csv";
+	            foreach (String filePath in Directory.GetFiles(directory, mask, SearchOption.AllDirectories))
+	            {
+	                using (FileStream fileStream = File.OpenRead(filePath))
+	                    CSVParser<T>.Deserialize(fileStream, dic);
+	            }
+	        }
+
+	        Dictionary<Int32, BaseStaticData> result = new Dictionary<Int32, BaseStaticData>(dic.Count);
+            foreach (KeyValuePair<Int32, T> pair in dic)
+            {
+                Int32 key = pair.Key;
+                T value = pair.Value;
+                value.PostDeserialization();
+                result.Add(key, value);
+            }
+
+	        m_staticDataMap[(Int32)p_type] = result;
+	    }
+
+	    public static T GetStaticData<T>(EDataType p_type, Int32 p_staticId) where T : BaseStaticData
 		{
 			Dictionary<Int32, BaseStaticData> dictionary = m_staticDataMap[(Int32)p_type];
 			BaseStaticData baseStaticData = null;
@@ -117,7 +147,12 @@ namespace Legacy.Core.StaticData
 				return (T[])s_Serializer.Deserialize(stream);
 			}
 
-			private static void ResolveColumnValue(Object sender, ColumnValueResolveEventArg e)
+		    public static void Deserialize(Stream stream, Dictionary<Int32, T> output)
+		    {
+		        s_Serializer.Deserialize(stream, output);
+		    }
+
+            private static void ResolveColumnValue(Object sender, ColumnValueResolveEventArg e)
 			{
 				if (e.Type == typeof(Resistance[]))
 				{

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Legacy.Core.Combat;
 using Legacy.Core.Configuration;
 using Legacy.Core.Entities.Skills;
@@ -234,7 +235,13 @@ namespace Legacy.Core.PartyManagement
 			return list;
 		}
 
-		public List<ParagonAbilitiesStaticData> GetParagonAbilities(Boolean p_hideUnlearned)
+	    public List<RacialSkillsStaticData> GetRacialSkills()
+	    {
+	        var q = StaticDataHandler.GetIterator<RacialSkillsStaticData>(EDataType.RACIAL_SKILLS);
+	        return q.Where(data => data.Race == m_race).ToList();
+	    }
+
+	    public List<ParagonAbilitiesStaticData> GetParagonAbilities(Boolean p_hideUnlearned)
 		{
 			List<ParagonAbilitiesStaticData> list = new List<ParagonAbilitiesStaticData>();
 			if (p_hideUnlearned && !IsAdvanced)

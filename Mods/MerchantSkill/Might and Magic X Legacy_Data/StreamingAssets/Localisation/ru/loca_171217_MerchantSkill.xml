@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Might & Magic - Legacy-->
+<Localization xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LocaData id="RACE_SKILL_HUMAN_MERCHANT">Торговля</LocaData>
+  <LocaData id="SKILL_NAME_MERCHANT">Торговля</LocaData>
+  <LocaData id="SKILL_DESC_MERCHANT">Чем выше этот навык, тем дешевле вы покупаете и тем дороже продаёте.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_1">{0}Уменьшает разницу{1} между реальной ценой товара и предложенной продавцом на {2}{0}%{1} за {0}каждый уровень навыка{1}.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_2">{0}Удваивает{1} эффект.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_3">{0}Утраивает{1} эффект.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_4">Продавцы покупают и продают предметы по {0}реальной цене{1}.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_CURRENT">{0}Уменьшает разницу{1} цен на {2}{0}%{1}.</LocaData>
+  <LocaData id="DIALOG_OPTION_OSCAR_TRAINING_MERCHANT_EXPERT">Обучение: знаток Торговли</LocaData>
+  <LocaData id="DIALOG_TEXT_OSCAR_TRAINING_MERCHANT_EXPERT_1">У меня честные цены и довольные посетители... Но я могу дать пару советов толковому ученику...</LocaData>
+  <LocaData id="DIALOG_TEXT_OSCAR_TRAINING_MERCHANT_EXPERT_2">Теперь вы знаток Торговли. Если вы хотите научиться большему, найдите в Крэге Ларго.</LocaData>
+  <LocaData id="DIALOG_OPTION_MABO_TRAINING_MERCHANT_EXPERT">Обучение: Знаток Торговли</LocaData>
+  <LocaData id="DIALOG_TEXT_MABO_TRAINING_MERCHANT_EXPERT_1">Если кто-нибудь из вас хочет стать знатоком Торговли, Мабо может научить.</LocaData>
+  <LocaData id="DIALOG_TEXT_MABO_TRAINING_MERCHANT_EXPERT_2">Мабо научил всему, что знает. Если хочешь продолжить обучение, поговори с Ларго здесь, в Крэге.</LocaData>
+  <LocaData id="DIALOG_OPTION_LARGO_TRAINING_MERCHANT_MASTER">Обучение: Мастер Торговли</LocaData>
+  <LocaData id="DIALOG_TEXT_LARGO_TRAINING_MERCHANT_MASTER_1">Горсть сэкономленных монет может обеспечить крышу над головой, а сотня потерянных убьёт вернее, чем самый острый клинок. Хотите спасти свою жизнь?</LocaData>
+  <LocaData id="DIALOG_TEXT_LARGO_TRAINING_MERCHANT_MASTER_2">Теперь вы мастер Торговли. Если хотите узнать больше, ищите убийцу по имени Черный Шепот. Хотя ее найти непросто.</LocaData>
+  <LocaData id="DIALOG_OPTION_YESHTAR_TRAINING_MERCHANT_GRANDMASTER">Обучение: Магистр Торговли</LocaData>
+  <LocaData id="DIALOG_TEXT_YESHTAR_TRAINING_MERCHANT_GRANDMASTER_1">(Ештар начинает тихо петь, и внезапно вы и ваши товарищи впадают в оцепенение. Как в страшном сне вы беспомощно смотрите, как Ештар что-то вытягивает из ваших голов… какой-то светящийся пурпурный туман, который вскоре превращается в четыре маленьких драгоценных камня.)@(Пение прекращается, и вы освобождаетесь от заклинания, оцепенение прошло, остались только головная боль и странное чувство пустоты. Кристаллов снов нигде не видно.)@Да, это будет хорошим дополнением к моей коллекции. Вы заплатили цену - кто хочет научиться торговле?</LocaData>
+  <LocaData id="DIALOG_TEXT_YESHTAR_TRAINING_MERCHANT_GRANDMASTER_2">Теперь вы магистр Торговли. Большему вас никто не научит. Возможно, скоро у вас появятся свои ученики… </LocaData>
+</Localization>

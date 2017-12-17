@@ -6,6 +6,7 @@ namespace Legacy.Core.Entities.Skills
 	{
 		WEAPON,
 		MISC,
-		MAGIC
+		MAGIC,
+        PARTY
 	}
 }

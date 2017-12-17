@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NpcConversationStaticData rootDialogID="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<dialog id="1" randomText="false" fakeNpcID="0" >
+		<entry>
+			<text locaKey="DIALOG_OPTION_YESHTAR_TRAINING_MERCHANT_GRANDMASTER" />	<!-- Training: Merchant Grandmaster -->
+			<function xsi:type="GoToFunction" dialogID="1712170001" />
+			<injection xsi:type="DialogEntryInjection" type="InsertAfter" target="DIALOG_OPTION_YESHTAR_4" /> <!-- InsertAfter Training: Daggers Grandmaster -->
+		</entry>
+	</dialog>
+	
+<!-- Training -->	
+
+	<dialog id="1712170001" randomText="false" fakeNpcID="0" hideBackButton="true" hideNpcsAndCloseButton="true">
+		<text locaKey="DIALOG_TEXT_YESHTAR_3" />				<!-- >I will train you... if you pay me.  -->
+		<entry>
+			<text locaKey="DIALOG_OPTION_YESHTAR_1" />			<!-- Accept (All characters will lose 1 Spirit point.) -->			
+			<function xsi:type="DecreaseAttributeFunction" attribute="SPIRIT"  dialogID="1712170002"/>
+		</entry>
+		<entry>
+			<text locaKey="DIALOG_OPTION_YESHTAR_3" />			<!-- Refuse.  -->			
+			<function xsi:type="GoToFunction" dialogID="6"/>
+		</entry>
+	</dialog>
+
+	<dialog id="1712170002">
+		<text locaKey="DIALOG_TEXT_YESHTAR_TRAINING_MERCHANT_GRANDMASTER_1" />		<!-- (Yeshtar begins to chant softly, a  -->
+	    <feature type="TRAINING" skillID="1712170001" skillRank="GRAND_MASTER" price="-1" dialogID="1712170003" />
+	</dialog>
+
+	<dialog id="1712170003">
+		<text locaKey="DIALOG_TEXT_YESHTAR_TRAINING_MERCHANT_GRANDMASTER_2" />		<!-- You are now a Grandmaster of the Merchant -->
+	    <feature type="TRAINING" skillID="1712170001" skillRank="GRAND_MASTER" price="-1" dialogID="1712170003" />
+	</dialog>
+	
+</NpcConversationStaticData>

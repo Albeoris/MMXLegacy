@@ -1,28 +1,37 @@
 ﻿using System;
+using System.Diagnostics;
+using Legacy.Core.Api;
+using Legacy.Core.Entities.Skills;
 using Legacy.Core.Internationalization;
+using Legacy.Core.PartyManagement;
 using Legacy.Core.SaveGameManagement;
 using Legacy.Core.StaticData;
 using Legacy.Core.StaticData.Items;
 
 namespace Legacy.Core.Entities.Items
 {
-	public abstract class BaseItem : ISaveGameObject
-	{
-		protected Single m_priceMultiplicator = 1f;
+    public abstract class BaseItem : ISaveGameObject
+    {
+        protected Single m_priceMultiplicator = 1f;
 
-		protected abstract BaseItemStaticData BaseData { get; }
+        protected abstract BaseItemStaticData BaseData { get; }
 
-		public Single PriceMultiplicator
-		{
-			get => m_priceMultiplicator;
-		    set => m_priceMultiplicator = value;
-		}
+        public Single PriceMultiplicator
+        {
+            get => GetPriceMultiplicator();
+            set => m_priceMultiplicator = value;
+        }
 
-		public virtual String Name => Localization.Instance.GetText(BaseData.NameKey);
+        private Single GetPriceMultiplicator()
+        {
+            return m_priceMultiplicator + (1 - m_priceMultiplicator) * LegacyLogic.Instance.WorldManager.Party.GetReducePriceDifferenceCoefficient();
+        }
+
+        public virtual String Name => Localization.Instance.GetText(BaseData.NameKey);
 
 	    public virtual String Icon => BaseData.Icon;
 
-	    public virtual Int32 Price => (Int32)Math.Ceiling(BaseData.Price * m_priceMultiplicator);
+	    public virtual Int32 Price => (Int32)Math.Ceiling(BaseData.Price * PriceMultiplicator);
 
 	    public virtual Int32 StaticId => BaseData.StaticID;
 

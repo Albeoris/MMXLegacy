@@ -122,7 +122,8 @@ namespace Legacy.Core.Api
 
 		internal void LoadStaticData(String p_staticDataPath)
 		{
-			StaticDataHandler.LoadData<RacialAbilitiesStaticData>(EDataType.RACIAL_ABILITIES, p_staticDataPath + "/RacialAbilities.csv");
+            StaticDataHandler.LoadData<RacialSkillsStaticData>(EDataType.RACIAL_SKILLS, p_staticDataPath + "/RacialSkills.csv");
+            StaticDataHandler.LoadData<RacialAbilitiesStaticData>(EDataType.RACIAL_ABILITIES, p_staticDataPath + "/RacialAbilities.csv");
 			StaticDataHandler.LoadData<ParagonAbilitiesStaticData>(EDataType.PARAGON_ABILITES, p_staticDataPath + "/ParagonAbilities.csv");
 			StaticDataHandler.LoadData<CharacterClassStaticData>(EDataType.CHARACTER_CLASS, p_staticDataPath + "/CharacterClassStaticData.csv");
 			StaticDataHandler.LoadData<MonsterStaticData>(EDataType.MONSTER, p_staticDataPath + "/MonsterStaticData.csv");

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NpcConversationStaticData rootDialogID="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<dialog id="1" randomText="false" fakeNpcID="0">
+		<entry>
+			<text locaKey="DIALOG_OPTION_OSCAR_TRAINING_MERCHANT_EXPERT" />	<!-- Training: Merchant Expert -->
+			<function xsi:type="GoToFunction" dialogID="1712170001" />
+			<injection xsi:type="DialogEntryInjection" type="InsertAfter" target="DIALOG_OPTION_OSCAR_4" /> <!-- InsertAfter Training: Daggers Expert -->
+		</entry>
+	</dialog>
+	
+<!-- Training: Merchant Expert -->
+	<dialog id="1712170001" randomText="false" fakeNpcID="0">
+		<text locaKey="DIALOG_TEXT_OSCAR_TRAINING_MERCHANT_EXPERT_1" />	<!-- I have honest prices and satisfied visitors... But I can give a couple of advice to an intelligent learner... -->
+	    <feature type="TRAINING" skillID="1712170001" skillRank="EXPERT" price="-1" dialogID="1712170002" />
+	</dialog>
+	
+	<dialog id="1712170002" randomText="false" fakeNpcID="0">
+		<text locaKey="DIALOG_TEXT_OSCAR_TRAINING_MERCHANT_EXPERT_2" />	<!-- You are now an Expert of Merchant. If you want to learn more, look for {TBD}. -->
+	    <feature type="TRAINING" skillID="1712170001" skillRank="EXPERT" price="-1" dialogID="1712170002" />
+	</dialog>
+
+</NpcConversationStaticData>

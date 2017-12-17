@@ -39,6 +39,7 @@ namespace Legacy.Core.Entities.Skills
 		IGNORE_RESISTANCE,
 		APPLY_GASH,
 		REDUCE_INCOMING_CRITICAL_MAGIC_DAMAGE,
-		RESTORE_MANA_ON_RESIST_MAGIC
-	}
+		RESTORE_MANA_ON_RESIST_MAGIC,
+	    ReducePriceDifference
+    }
 }

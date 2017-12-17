@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Legacy.Core.ActionLogging;
 using Legacy.Core.Api;
 using Legacy.Core.Buffs;
@@ -58,9 +59,10 @@ namespace Legacy.Core.PartyManagement
 			InitSkills(m_availableSkills, @class.GetSkillIDs(ETier.GRAND_MASTER), ETier.GRAND_MASTER);
 			InitSkills(m_availableSkills, @class.GetSkillIDs(ETier.MASTER), ETier.MASTER);
 			InitSkills(m_availableSkills, @class.GetSkillIDs(ETier.EXPERT), ETier.EXPERT);
+		    InitRacialSkills(m_availableSkills, @class.GetRacialSkills());
 		}
 
-		private static void InitSkills(List<Skill> skillList, Int32[] p_skillIDs, ETier p_maxTier)
+	    private static void InitSkills(List<Skill> skillList, Int32[] p_skillIDs, ETier p_maxTier)
 		{
 			for (Int32 i = 0; i < p_skillIDs.Length; i++)
 			{
@@ -69,7 +71,16 @@ namespace Legacy.Core.PartyManagement
 			}
 		}
 
-		public void SpendSkillPoint()
+	    private void InitRacialSkills(List<Skill> skillList, List<RacialSkillsStaticData> racialSkills)
+	    {
+	        foreach (RacialSkillsStaticData skillData in racialSkills)
+            {
+                Skill item = new Skill(skillData.Value, skillData.Tier);
+                skillList.Add(item);
+            }
+	    }
+
+	    public void SpendSkillPoint()
 		{
 			if (m_character.SkillPoints > 0)
 			{
@@ -527,6 +538,23 @@ namespace Legacy.Core.PartyManagement
 			}
 			p_attributes.ManaPoints = (Int32)Math.Round(num * p_attributes.ManaPoints, MidpointRounding.AwayFromZero);
 		}
+
+        public Single GetReducePriceDifferenceCoefficient()
+        {
+            Single result = 0;
+
+            foreach (Skill skill in m_availableSkills)
+            {
+                foreach (SkillEffectStaticData skillEffectStaticData in skill.CurrentlyAvailableEffects)
+                {
+                    ESkillEffectType type = skillEffectStaticData.Type;
+                    if (type == ESkillEffectType.ReducePriceDifference)
+                        result = ResolveValue(result, skillEffectStaticData, skill);
+                }
+            }
+
+            return result;
+        }
 
 		public void AddFightValues(FightValues p_fightValues)
 		{

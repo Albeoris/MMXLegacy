@@ -1371,5 +1371,21 @@ namespace Legacy.Core.PartyManagement
 		}
 
 		public delegate void CharacterSelectRequest(Int32 p_character);
+
+	    public Single GetReducePriceDifferenceCoefficient()
+	    {
+	        Single coeff = 0f;
+	        foreach (Character member in Members)
+	        {
+	            if (!member.ConditionHandler.HasCondition(ECondition.DEAD))
+	                coeff += member.SkillHandler.GetReducePriceDifferenceCoefficient();
+	        }
+
+	        if (coeff < 0)
+	            coeff = 0;
+	        if (coeff > 1)
+	            coeff = 1;
+	        return coeff;
+	    }
 	}
 }

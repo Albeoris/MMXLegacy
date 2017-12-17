@@ -83,7 +83,7 @@ namespace Legacy.Core.Entities.Items
 				{
 					num = (Int32)(num * ConfigManager.Instance.Game.ItemEquipmentFactor);
 				}
-				return (Int32)Math.Ceiling(num * m_priceMultiplicator);
+				return (Int32)Math.Ceiling(num * PriceMultiplicator);
 			}
 		}
 

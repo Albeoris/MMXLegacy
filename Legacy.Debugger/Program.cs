@@ -30,8 +30,11 @@ namespace Legacy.Debugger
 
                 if (!File.Exists(unityPath))
                 {
-                    File.Copy(executablePath, backupPath);
-                    File.SetLastWriteTimeUtc(backupPath, File.GetLastWriteTimeUtc(executablePath));
+                    if (!File.Exists(backupPath))
+                    {
+                        File.Copy(executablePath, backupPath);
+                        File.SetLastWriteTimeUtc(backupPath, File.GetLastWriteTimeUtc(executablePath));
+                    }
 
                     File.Copy(executablePath, unityPath);
                     File.SetLastWriteTimeUtc(unityPath, File.GetLastWriteTimeUtc(executablePath));

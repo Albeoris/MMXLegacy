@@ -450,6 +450,7 @@
     <Compile Include="Core\NpcInteraction\Conditions\DayTimeNotEqualsCondition.cs" />
     <Compile Include="Core\NpcInteraction\Conditions\DeadCharacterCondition.cs" />
     <Compile Include="Core\NpcInteraction\Conditions\DialogCondition.cs" />
+    <Compile Include="Core\NpcInteraction\Conditions\DialogEntryInjection.cs" />
     <Compile Include="Core\NpcInteraction\Conditions\GoldCondition.cs" />
     <Compile Include="Core\NpcInteraction\Conditions\HirelingFreeSlotCondition.cs" />
     <Compile Include="Core\NpcInteraction\Conditions\HirelingHiredCondition.cs" />
@@ -792,6 +793,7 @@
     <Compile Include="Core\StaticData\PartyBuffStaticData.cs" />
     <Compile Include="Core\StaticData\QuestStepStaticData.cs" />
     <Compile Include="Core\StaticData\RacialAbilitiesStaticData.cs" />
+    <Compile Include="Core\StaticData\RacialSkillsStaticData.cs" />
     <Compile Include="Core\StaticData\RechargingObjectStaticData.cs" />
     <Compile Include="Core\StaticData\ShrineStaticData.cs" />
     <Compile Include="Core\StaticData\SkillEffectStaticData.cs" />

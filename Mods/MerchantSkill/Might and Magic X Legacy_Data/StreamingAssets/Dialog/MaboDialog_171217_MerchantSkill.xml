@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<NpcConversationStaticData rootDialogID="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<dialog id="1" randomText="false" fakeNpcID="0" >
+		<entry>
+			<text locaKey="DIALOG_OPTION_MABO_TRAINING_MERCHANT_EXPERT" />	<!-- Training: Merchant Expert -->
+			<function xsi:type="GoToFunction" dialogID="1712170001" />
+			<injection xsi:type="DialogEntryInjection" type="InsertAfter" target="DIALOG_OPTION_MABO_3" /> <!-- InsertAfter Training: Daggers Expert -->
+		</entry>
+	</dialog>
+
+<!-- Training: Merchant Expert -->
+	<dialog id="1712170001" randomText="false" fakeNpcID="0">
+		<text locaKey="DIALOG_TEXT_MABO_TRAINING_MERCHANT_EXPERT_1" />	<!-- If one of you wants to become a connoisseur of Merchant, Mabo can teach. -->
+	    <feature type="TRAINING" skillID="1712170001" skillRank="EXPERT" price="-1" dialogID="1712170002" />
+	</dialog>
+	
+	<dialog id="1712170002" randomText="false" fakeNpcID="0">
+		<text locaKey="DIALOG_TEXT_MABO_TRAINING_MERCHANT_EXPERT_2" />	<!-- Mabo taught everything he knew. If you want to continue your studies, talk to Largo here in Craig. -->
+	    <feature type="TRAINING" skillID="1712170001" skillRank="EXPERT" price="-1" dialogID="1712170002" />
+	</dialog>
+	
+</NpcConversationStaticData>

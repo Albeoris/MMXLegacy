@@ -16,6 +16,8 @@ namespace Legacy.Game.MMGUI
 		[SerializeField]
 		private UILabel m_skillPointsText;
 
+	    private UILabel m_partySkillPointsText;
+
 		[SerializeField]
 		private SkillView[] m_skillViews;
 
@@ -127,22 +129,26 @@ namespace Legacy.Game.MMGUI
 			m_currentViewNr = 0;
 			m_skillHandler = m_party.GetMember(m_party.CurrentCharacter).SkillHandler;
 			m_skillCount = m_skillHandler.AvailableSkills.Count;
-			switch (m_skillTabs.CurrentTabIndex)
-			{
-			case 0:
-				FillAllSkills();
-				break;
-			case 1:
-				FillSkillForCategory(ESkillCategory.WEAPON);
-				break;
-			case 2:
-				FillSkillForCategory(ESkillCategory.MISC);
-				break;
-			case 3:
-				FillSkillForCategory(ESkillCategory.MAGIC);
-				break;
-			}
-			m_pageCount = (m_currentViewNr - 1) / 11 + 1;
+		    switch (m_skillTabs.CurrentTabIndex)
+		    {
+		        case 0:
+		            FillAllSkills();
+		            break;
+		        case 1:
+		            FillSkillForCategory(ESkillCategory.WEAPON);
+		            break;
+		        case 2:
+		            FillSkillForCategory(ESkillCategory.MISC);
+		            FillSkillForCategory(ESkillCategory.PARTY); // Temp
+                    break;
+		        case 3:
+		            FillSkillForCategory(ESkillCategory.MAGIC);
+		            break;
+		        case 4:
+		            FillSkillForCategory(ESkillCategory.PARTY);
+		            break;
+		    }
+		    m_pageCount = (m_currentViewNr - 1) / 11 + 1;
 			while (m_currentViewNr < (m_page + 1) * 11)
 			{
 				Int32 num = m_currentViewNr - m_page * 11;
@@ -197,9 +203,9 @@ namespace Legacy.Game.MMGUI
 			String arg = (m_skillHandler.Character.SkillPoints <= 0) ? m_noSkillpointsColorHex : m_skillpointsColorHex;
 			String arg2 = arg + m_skillHandler.Character.SkillPoints + "[-]";
 			m_skillPointsText.text = LocaManager.GetText("GUI_SKILLS_AVAILABLE_SKILLPOINTS", arg2);
-		}
+        }
 
-		private void OnCheckboxStateChanged(Boolean p_state)
+        private void OnCheckboxStateChanged(Boolean p_state)
 		{
 			UpdatePage(0);
 		}
@@ -209,7 +215,8 @@ namespace Legacy.Game.MMGUI
 			ALL,
 			WEAPON,
 			MISC,
-			MAGIC
-		}
+			MAGIC,
+		    PARTY
+        }
 	}
 }

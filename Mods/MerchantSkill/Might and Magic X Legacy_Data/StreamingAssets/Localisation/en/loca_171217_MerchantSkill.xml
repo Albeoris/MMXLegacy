@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Might & Magic - Legacy-->
+<Localization xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LocaData id="RACE_SKILL_HUMAN_MERCHANT">Merchant</LocaData>
+  <LocaData id="SKILL_NAME_MERCHANT">Merchant</LocaData>
+  <LocaData id="SKILL_DESC_MERCHANT">The higher this skill, the cheaper you buy and the more expensive you sell.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_1">{0}Reduces the difference{1} between the actual price of the item and the vendor's proposed {2}{0}%{1} for {0}each skill level{1}.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_2">{0}Doubles{1} the effect.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_3">{0}Triples{1} the effect.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_4">Sellers buy and sell items at {0}real price{1}.</LocaData>
+  <LocaData id="SKILL_EFFECT_MERCHANT_CURRENT">{0}Reduces the difference{1} between prices for {2}{0}%{1}.</LocaData>
+  <LocaData id="DIALOG_OPTION_OSCAR_TRAINING_MERCHANT_EXPERT">Training: Merchant Expert</LocaData>
+  <LocaData id="DIALOG_TEXT_OSCAR_TRAINING_MERCHANT_EXPERT_1">I have honest prices and satisfied visitors... But I can give a couple of advice to an intelligent learner...</LocaData>
+  <LocaData id="DIALOG_TEXT_OSCAR_TRAINING_MERCHANT_EXPERT_2">You are now an Expert of Merchant. If you want to learn more, look for Largo, in the Crag.</LocaData>
+  <LocaData id="DIALOG_OPTION_MABO_TRAINING_MERCHANT_EXPERT">Training: Merchant Expert</LocaData>
+  <LocaData id="DIALOG_TEXT_MABO_TRAINING_MERCHANT_EXPERT_1">Mabo can make one of you an Expert of the Merchant, if you have the potential.</LocaData>
+  <LocaData id="DIALOG_TEXT_MABO_TRAINING_MERCHANT_EXPERT_2">Mabo taught you everything Mabo knows. If you want to learn more, talk to Largo, here in the Crag.</LocaData>
+  <LocaData id="DIALOG_OPTION_LARGO_TRAINING_MERCHANT_MASTER">Training: Merchant Master</LocaData>
+  <LocaData id="DIALOG_TEXT_LARGO_TRAINING_MERCHANT_MASTER_1">A handful of saved coins can provide a roof over your head, and a hundred lost will be killed more accurately than the sharpest blade. Do you want to save your life?</LocaData>
+  <LocaData id="DIALOG_TEXT_LARGO_TRAINING_MERCHANT_MASTER_2">You are now a Master of Daggers. If you want to learn more, look for the assassin known as the Black Whisper. Could luck finding her, though.</LocaData>
+  <LocaData id="DIALOG_OPTION_YESHTAR_TRAINING_MERCHANT_GRANDMASTER">Training: Merchant Grandmaster</LocaData>
+  <LocaData id="DIALOG_TEXT_YESHTAR_TRAINING_MERCHANT_GRANDMASTER_1">(Yeshtar begins to chant softly, and a sudden numbness envelops you and your companions. Like in a dark dream, you watch helplessly as Yeshtar pulls something from your heads... some sort of glowing, purple haze, that soon crystallizes into four small gems.)@(The chant ends, and you're freed from Yeshtar's spell, the numbness replaced by a dizzing headache and a feeling of emptiness. The Dream Shards are nowhere to be seen.)@Yes, this will be a nice addition to my collection. My price is met -- now who wants to learn the art of the merchant?</LocaData>
+  <LocaData id="DIALOG_TEXT_YESHTAR_TRAINING_MERCHANT_GRANDMASTER_2">You are now a Grandmaster of the Dagger. There's nothing more anyone can teach you. Maybe you'll soon find students of your own...</LocaData>
+</Localization>

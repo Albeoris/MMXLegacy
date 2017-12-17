@@ -77,25 +77,29 @@ namespace Legacy.Core.Internationalization
 		{
 			try
 			{
-				for (Int32 i = 0; i < data.Length; i++)
-				{
-					if (p_target.ContainsKey(data[i].ID))
-					{
-						LegacyLogger.Log("Double LocaID '" + data[i].ID + "' in " + fileOrigin);
-					}
-					else if (data[i].Text != null)
-					{
-						p_target.Add(data[i].ID, data[i].Text.Trim());
-					}
-					else
-					{
-						LegacyLogger.Log("LocaID '" + data[i].ID + "' has no text", false);
-					}
-				}
+			    HashSet<String> processedIds = new HashSet<String>();
+
+			    for (Int32 i = 0; i < data.Length; i++)
+			    {
+			        LocaData item = data[i];
+			        if (!processedIds.Add(item.ID))
+			        {
+			            LegacyLogger.Log("Double LocaID '" + item.ID + "' in " + fileOrigin);
+			            continue;
+			        }
+
+			        if (String.IsNullOrEmpty(item.Text))
+			        {
+			            LegacyLogger.Log("LocaID '" + item.ID + "' has no text", false);
+			            continue;
+			        }
+
+			        p_target[item.ID] = item.Text.Trim();
+			    }
 			}
 			catch (Exception ex)
 			{
-				LegacyLogger.Log("Error initializing LocaTexts: " + fileOrigin + " " + ex.ToString());
+				LegacyLogger.Log("Error initializing LocaTexts: " + fileOrigin + " " + ex);
 			}
 		}
 

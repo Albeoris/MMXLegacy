@@ -74,6 +74,7 @@ namespace Legacy.Core.StaticData
 		ENDING_SLIDES,
 		SHRINES,
 		OBELISKS,
-		_MAX_
+	    RACIAL_SKILLS,
+        _MAX_
 	}
 }
