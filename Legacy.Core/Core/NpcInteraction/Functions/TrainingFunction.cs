@@ -2,7 +2,9 @@
 using System.Xml.Serialization;
 using Legacy.Core.Api;
 using Legacy.Core.Entities.Skills;
+using Legacy.Core.EventManagement;
 using Legacy.Core.PartyManagement;
+using Legacy.Core.StaticData;
 
 namespace Legacy.Core.NpcInteraction.Functions
 {
@@ -59,11 +61,29 @@ namespace Legacy.Core.NpcInteraction.Functions
 		    set => m_price = value;
 		}
 
-		public override void Trigger(ConversationManager p_manager)
-		{
-			m_character.SkillHandler.SetSkillTier(m_skillID, m_tier);
-			LegacyLogic.Instance.WorldManager.Party.ChangeGold(-m_price);
-			p_manager._ChangeDialog(p_manager.CurrentNpc.StaticID, m_dialogID);
-		}
+	    public override void OnShow(Func<String, String> localisation)
+	    {
+	        RaiseEventShow(localisation, m_skillID, m_tier);
+	    }
+
+	    public static void RaiseEventShow(Func<String, String> localisation, Int32 skillId, ETier skillRank)
+	    {
+	        LegacyLogic.Instance.EventManager.Get<InitTrainingDialogArgs>().TryInvoke(() =>
+	        {
+	            String caption = localisation("GUI_PARTY_CREATION_SKILLS_TRAINING");
+
+	            var skillData = StaticDataHandler.GetStaticData<SkillStaticData>(EDataType.SKILL, skillId);
+	            var skillName = localisation(skillData.Name);
+
+	            return new InitTrainingDialogArgs(caption, skillRank, skillData, skillName);
+	        });
+	    }
+
+	    public override void Trigger(ConversationManager p_manager)
+	    {
+	        m_character.SkillHandler.SetSkillTier(m_skillID, m_tier);
+	        LegacyLogic.Instance.WorldManager.Party.ChangeGold(-m_price);
+	        p_manager._ChangeDialog(p_manager.CurrentNpc.StaticID, m_dialogID);
+	    }
 	}
 }

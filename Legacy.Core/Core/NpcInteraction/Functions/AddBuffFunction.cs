@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Xml.Serialization;
 using Legacy.Core.Api;
+using Legacy.Core.EventManagement;
 using Legacy.Core.PartyManagement;
+using Legacy.Core.StaticData;
 
 namespace Legacy.Core.NpcInteraction.Functions
 {
@@ -45,7 +47,18 @@ namespace Legacy.Core.NpcInteraction.Functions
 		    set => m_magicFactor = value;
 		}
 
-		public override void Trigger(ConversationManager p_manager)
+	    public override void OnShow(Func<String, String> localisation)
+	    {
+	        LegacyLogic.Instance.EventManager.Get<InitUniqueDialogArgs>().TryInvoke(() =>
+	        {
+	            PartyBuffStaticData buffData = StaticDataHandler.GetStaticData<PartyBuffStaticData>(EDataType.PARTY_BUFFS, BuffID);
+	            String caption = localisation(buffData.Name);
+
+	            return new InitUniqueDialogArgs(caption);
+	        });
+	    }
+
+	    public override void Trigger(ConversationManager p_manager)
 		{
 			LegacyLogic.Instance.WorldManager.Party.Buffs.AddBuff((EPartyBuffs)m_buffID, m_magicFactor);
 			p_manager._ChangeDialog(p_manager.CurrentNpc.StaticID, m_dialogID);

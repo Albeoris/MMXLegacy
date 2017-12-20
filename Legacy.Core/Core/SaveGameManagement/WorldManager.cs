@@ -86,7 +86,7 @@ namespace Legacy.Core.SaveGameManagement
 			m_bestiaryHandler = new BestiaryHandler();
 			m_achievementManager = new AchievementManager();
 			m_hintManager = new HintManager();
-			m_mapNotesController = new MapNotesController();
+			m_mapNotesController = new MapNotesController(p_eventManager);
 			m_npcFactory = new NpcFactory(p_eventManager);
 			m_saveGameManager = new DefaultSaveGameManager();
 			m_spiritBeaconController = new SpiritBeaconController(p_eventManager);

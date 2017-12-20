@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml.Serialization;
 using Legacy.Core.Api;
 using Legacy.Core.Entities;
@@ -7,6 +8,8 @@ using Legacy.Core.Entities.InteractiveObjects;
 using Legacy.Core.EventManagement;
 using Legacy.Core.PartyManagement;
 using Legacy.Core.Pathfinding;
+using Legacy.Core.WorldMap;
+using Legacy.Utilities;
 
 namespace Legacy.Core.Map
 {
@@ -950,5 +953,40 @@ namespace Legacy.Core.Map
 		{
 			return AStarHelper<GridSlot>.Calculate(GetSlot(p_controller.Position), GetSlot(p_target), 10, p_controller, false, p_path);
 		}
+
+	    public Boolean GetPlayerPosition(out Position partyPosition)
+	    {
+	        if (Type == EMapType.OUTDOOR)
+	        {
+	            Party party = LegacyLogic.Instance.WorldManager.Party;
+	            if (party != null)
+	            {
+	                partyPosition = party.Position;
+	                return true;
+	            }
+	        }
+            else if (Type == EMapType.CITY)
+            {
+                Party party = LegacyLogic.Instance.WorldManager.Party;
+                if (party != null)
+                {
+                    partyPosition = party.Position;
+                    return true;
+                }
+            }
+	        else
+	        {
+	            WorldMapPoint worldMapPoint = LegacyLogic.Instance.WorldManager.WorldMapController.FindWorldMapPoint(WorldMapPointID);
+	            if (worldMapPoint != null)
+	            {
+	                partyPosition = worldMapPoint.StaticData.Position;
+	                return true;
+	            }
+                LegacyLogger.LogError("Grid mappoint ID not found! ID: " + WorldMapPointID);
+	        }
+
+	        partyPosition = default(Position);
+            return false;
+	    }
 	}
 }

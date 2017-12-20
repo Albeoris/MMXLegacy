@@ -2,6 +2,7 @@
 using System.Xml.Serialization;
 using Legacy.Core.Api;
 using Legacy.Core.Configuration;
+using Legacy.Core.EventManagement;
 
 namespace Legacy.Core.NpcInteraction.Functions
 {
@@ -48,6 +49,38 @@ namespace Legacy.Core.NpcInteraction.Functions
 		}
 
 		public override Boolean RequireGold => true;
+
+	    public override void OnShow(Func<string, string> localisation)
+	    {
+	        RaiseEventShow(localisation, m_repairType);
+	    }
+
+	    public static void RaiseEventShow(Func<String, String> localisation, ERepairType repairType)
+	    {
+	        LegacyLogic.Instance.EventManager.Get<InitServiceDialogArgs>().TryInvoke(() =>
+	        {
+	            String caption = localisation("DIALOG_OPTION_SERVICES") + ":"; // Services:
+	            String title;
+
+	            switch (repairType)
+	            {
+	                case ERepairType.ALL:
+	                    title = localisation("DIALOG_OPTION_REPAIR_ALL"); // Repair: All Items
+	                    break;
+	                case ERepairType.WEAPONS:
+	                    title = localisation("DIALOG_OPTION_REPAIR_WEAPONS"); // Repair: Weapons
+	                    break;
+	                case ERepairType.ARMOR_AND_SHIELD:
+	                    title = localisation("DIALOG_OPTION_REPAIR_ARMOR"); // Repair: Armour and Shields
+	                    break;
+	                default:
+	                    title = localisation("DIALOG_SHORTCUT_REPAIR"); // Repair
+	                    break;
+	            }
+
+	            return new InitServiceDialogArgs(caption, title);
+	        });
+	    }
 
 	    public override void Trigger(ConversationManager p_manager)
 		{

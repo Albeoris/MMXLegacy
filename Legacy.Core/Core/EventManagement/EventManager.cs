@@ -4,21 +4,66 @@ using Legacy.Utilities;
 
 namespace Legacy.Core.EventManagement
 {
-	public class EventManager
-	{
-		private List<EventHandler>[] m_eventMap;
+    public sealed class EventManager<T> where T : EventArgs
+    {
+        public event Action<T> Event;
 
-		public EventManager()
+        public void Invoke(T args)
+        {
+            try
+            {
+                Event?.Invoke(args);
+            }
+            catch (Exception ex)
+            {
+                LegacyLogger.LogError(String.Concat("Event exception '", args.GetType().Name, "'\n", ex), true);
+            }
+        }
+
+        public void TryInvoke(Func<T> args)
+        {
+            try
+            {
+                Action<T> evt = Event;
+                if (evt == null)
+                    return;
+
+                evt(args());
+            }
+            catch (Exception ex)
+            {
+                LegacyLogger.LogError(String.Concat("Event exception '", args.GetType().Name, "'\n", ex), true);
+            }
+        }
+    }
+
+    public class EventManager
+	{
+		private readonly List<EventHandler>[] m_eventMap;
+        private readonly Dictionary<Type, Object> m_genericEventMap;
+
+        public EventManager()
 		{
 			Array values = Enum.GetValues(typeof(EEventType));
 			m_eventMap = new List<EventHandler>[values.Length];
-			for (Int32 i = 0; i < m_eventMap.Length; i++)
-			{
+		    m_genericEventMap = new Dictionary<Type, Object>();
+            for (Int32 i = 0; i < m_eventMap.Length; i++)
 				m_eventMap[i] = new List<EventHandler>();
-			}
 		}
 
-		public void RegisterEvent(EEventType p_type, EventHandler p_delegate)
+	    public EventManager<T> Get<T>() where T : EventArgs
+	    {
+	        Type key = TypeCache<T>.Type;
+
+	        if (m_genericEventMap.TryGetValue(key, out var value))
+	            return (EventManager<T>)value;
+
+	        EventManager<T> evt = new EventManager<T>();
+	        m_genericEventMap.Add(key, evt);
+	        return evt;
+	    }
+
+	    public void RegisterEvent(EEventType p_type, EventHandler p_delegate)
 		{
 			m_eventMap[(Int32)p_type].Add(p_delegate);
 		}

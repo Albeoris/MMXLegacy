@@ -2,6 +2,7 @@
 using System.Xml.Serialization;
 using Legacy.Core.Api;
 using Legacy.Core.Configuration;
+using Legacy.Core.EventManagement;
 
 namespace Legacy.Core.NpcInteraction.Functions
 {
@@ -38,6 +39,22 @@ namespace Legacy.Core.NpcInteraction.Functions
 		}
 
 		public override Boolean RequireGold => true;
+
+        public override void OnShow(Func<String, String> localisation)
+        {
+            RaiseEventShow(localisation);
+        }
+
+	    public static void RaiseEventShow(Func<String, String> localisation)
+	    {
+	        LegacyLogic.Instance.EventManager.Get<InitServiceDialogArgs>().TryInvoke(() =>
+	        {
+	            String caption = localisation("DIALOG_OPTION_SERVICES") + ":"; // Services:
+	            String title = localisation("DIALOG_SHORTCUT_IDENTIFY"); // Identify
+
+	            return new InitServiceDialogArgs(caption, title);
+	        });
+	    }
 
 	    public override void Trigger(ConversationManager p_manager)
 		{

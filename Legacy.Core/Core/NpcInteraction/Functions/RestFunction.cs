@@ -46,7 +46,23 @@ namespace Legacy.Core.NpcInteraction.Functions
 		    set => m_wellRested = value;
 		}
 
-		public override void Trigger(ConversationManager p_manager)
+        public override void OnShow(Func<string, string> localisation)
+        {
+            RaiseEventShow(localisation);
+        }
+
+	    public static void RaiseEventShow(Func<String, String> localisation)
+	    {
+	        LegacyLogic.Instance.EventManager.Get<InitServiceDialogArgs>().TryInvoke(() =>
+	        {
+	            String caption = localisation("DIALOG_OPTION_SERVICES") + ":"; // Services:
+	            String title = localisation("HINT_TITLE_RESTING"); // Resting
+
+	            return new InitServiceDialogArgs(caption, title);
+	        });
+	    }
+
+	    public override void Trigger(ConversationManager p_manager)
 		{
 			Party party = LegacyLogic.Instance.WorldManager.Party;
 			party.IsNpcRest = true;

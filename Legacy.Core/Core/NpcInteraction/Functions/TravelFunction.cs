@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using Legacy.Core.Api;
 using Legacy.Core.EventManagement;
 using Legacy.Core.Internationalization;
+using Legacy.Core.Map;
 using Legacy.Core.PartyManagement;
 using Legacy.Core.SaveGameManagement;
 
@@ -49,7 +50,33 @@ namespace Legacy.Core.NpcInteraction.Functions
 		    set => m_targetSpawnId = value;
 		}
 
-		public override void Trigger(ConversationManager p_manager)
+        public override void OnShow(Func<string, string> localisation)
+        {
+            RaiseEventShow(localisation, m_mapName);
+        }
+
+	    public static void RaiseEventShow(Func<String, String> localisation, String mapName)
+	    {
+	        LegacyLogic.Instance.EventManager.Get<InitServiceDialogArgs>().TryInvoke(() =>
+	        {
+	            GridInfo gridInfo = LegacyLogic.Instance.MapLoader.FindGridInfo(mapName);
+	            if (gridInfo != null)
+	            {
+	                String caption = localisation("POPUP_REQUEST_SPIRIT_BEACON_TRAVEL") + ":"; // Travel:
+	                String displayName = localisation(gridInfo.LocationLocaName);
+	                displayName = displayName.Replace("@", ", ");
+	                return new InitServiceDialogArgs(caption, displayName);
+	            }
+	            else
+	            {
+	                String caption = localisation("DIALOG_OPTION_SERVICES") + ":"; // Services:
+	                String title = localisation("POPUP_REQUEST_SPIRIT_BEACON_TRAVEL"); // Travel
+	                return new InitServiceDialogArgs(caption, title);
+	            }
+	        });
+	    }
+
+	    public override void Trigger(ConversationManager p_manager)
 		{
 			if (p_manager.IndoorScene != String.Empty)
 			{

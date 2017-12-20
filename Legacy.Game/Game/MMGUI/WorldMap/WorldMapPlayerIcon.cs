@@ -94,32 +94,13 @@ namespace Legacy.Game.MMGUI.WorldMap
 			}
 		}
 
-		private static Boolean GetPlayerPosition(out Position partyPosition)
+	    private static Boolean GetPlayerPosition(out Position partyPosition)
 		{
 			Grid grid = LegacyLogic.Instance.MapLoader.Grid;
 			if (grid != null)
-			{
-				if (grid.Type == EMapType.OUTDOOR)
-				{
-					Party party = LegacyLogic.Instance.WorldManager.Party;
-					if (party != null)
-					{
-						partyPosition = party.Position;
-						return true;
-					}
-				}
-				else
-				{
-					WorldMapPoint worldMapPoint = LegacyLogic.Instance.WorldManager.WorldMapController.FindWorldMapPoint(grid.WorldMapPointID);
-					if (worldMapPoint != null)
-					{
-						partyPosition = worldMapPoint.StaticData.Position;
-						return true;
-					}
-					Debug.LogError("Grid mappoint ID not found! ID: " + grid.WorldMapPointID);
-				}
-			}
-			partyPosition = default(Position);
+			    return grid.GetPlayerPosition(out partyPosition);
+
+            partyPosition = default(Position);
 			return false;
 		}
 	}

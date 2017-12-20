@@ -41,6 +41,22 @@ namespace Legacy.Core.NpcInteraction.Functions
 
 		public Character Chara => m_char;
 
+        public override void OnShow(Func<string, string> localisation)
+        {
+            RaiseEventShow(localisation);
+        }
+
+	    public static void RaiseEventShow(Func<String, String> localisation)
+	    {
+	        LegacyLogic.Instance.EventManager.Get<InitServiceDialogArgs>().TryInvoke(() =>
+	        {
+	            String caption = localisation("DIALOG_OPTION_SERVICES") + ":"; // Services:
+	            String title = localisation("DIALOG_OPTION_RESURRECT"); // Resurrection
+
+	            return new InitServiceDialogArgs(caption, title);
+	        });
+	    }
+
 	    public override void Trigger(ConversationManager p_manager)
 		{
 			if (m_char.ConditionHandler.HasCondition(ECondition.DEAD))

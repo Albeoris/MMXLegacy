@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Legacy.Core.Api;
+using Legacy.Core.EventManagement;
 
 namespace Legacy.Core.NpcInteraction.Functions
 {
@@ -23,7 +25,23 @@ namespace Legacy.Core.NpcInteraction.Functions
 		    set => m_dialogID = value;
 		}
 
-		public override void Trigger(ConversationManager p_manager)
+        public override void OnShow(Func<string, string> localisation)
+        {
+            RaiseEventShow(localisation);
+        }
+
+	    public static void RaiseEventShow(Func<String, String> localisation)
+	    {
+	        LegacyLogic.Instance.EventManager.Get<InitServiceDialogArgs>().TryInvoke(() =>
+	        {
+	            String caption = localisation("GUI_TRADE_NPC_BUY_BUTTON") + ":"; // Buy:
+	            String title = localisation("DIALOG_SHORTCUT_SPELLS"); // Spells
+
+	            return new InitServiceDialogArgs(caption, title);
+	        });
+	    }
+
+	    public override void Trigger(ConversationManager p_manager)
 		{
 			p_manager.CurrentNpc.TradingSpells.StartTrade(m_dialogID);
 		}

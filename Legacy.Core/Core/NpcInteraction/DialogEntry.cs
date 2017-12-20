@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Legacy.Core.NpcInteraction.Conditions;
+using Legacy.Core.NpcInteraction.Functions;
 using Legacy.Core.StaticData;
 
 namespace Legacy.Core.NpcInteraction
@@ -106,7 +107,16 @@ namespace Legacy.Core.NpcInteraction
 			return false;
 		}
 
-		public override String ToString()
+	    public void NotifyShow(Func<String,String> localisation)
+	    {
+	        if (m_staticData.m_functions != null)
+	        {
+	            foreach (DialogFunction function in m_staticData.m_functions)
+	                function.OnShow(localisation);
+	        }
+	    }
+
+	    public override String ToString()
 		{
 			if (m_staticData.m_functions != null)
 			{

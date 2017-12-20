@@ -36,7 +36,7 @@ namespace Legacy.Core.NpcInteraction.Functions
 		    set => m_price = value;
 		}
 
-		public override void Trigger(ConversationManager p_manager)
+        public override void Trigger(ConversationManager p_manager)
 		{
 			foreach (Character character in LegacyLogic.Instance.WorldManager.Party.GetCharactersAlive())
 			{

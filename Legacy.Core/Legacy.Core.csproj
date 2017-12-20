@@ -370,6 +370,9 @@
     <Compile Include="Core\EventManagement\EventManager.cs" />
     <Compile Include="Core\EventManagement\GameMessageEventArgs.cs" />
     <Compile Include="Core\EventManagement\GameTimeEventArgs.cs" />
+    <Compile Include="Core\EventManagement\Generic\InitServiceDialogArgs.cs" />
+    <Compile Include="Core\EventManagement\Generic\InitTrainingDialogArgs.cs" />
+    <Compile Include="Core\EventManagement\Generic\InitUniqueDialogArgs.cs" />
     <Compile Include="Core\EventManagement\GridCreatedEventArgs.cs" />
     <Compile Include="Core\EventManagement\HealedTarget.cs" />
     <Compile Include="Core\EventManagement\HirelingEventArgs.cs" />
@@ -949,6 +952,7 @@
     <Compile Include="Core\WorldMap\WorldMapPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Random.cs" />
+    <Compile Include="Utilities\TypeCache.cs" />
     <Compile Include="Utilities\LegacyLogger.cs" />
   </ItemGroup>
   <ItemGroup>

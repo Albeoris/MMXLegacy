@@ -54,16 +54,18 @@ namespace Legacy.Game.MMGUI
 	    public Int32 BackToDialogId => m_backToId;
 
 	    public void SetEntry(DialogEntry p_entry, GameObject p_dialogView)
-		{
-			m_entry = p_entry;
+	    {
+            m_entry = p_entry;
 			if (p_entry.Text != null)
 			{
-				m_text.text = m_index + ". " + LocaManager.GetText(p_entry.Text.LocaKey);
+			    String localizableText = LocaManager.GetText(p_entry.Text.LocaKey);
+			    m_text.text = m_index + ". " + localizableText;
 			}
 			else
 			{
-				m_text.text = "no text found";
+                m_text.text = "no text found";
 			}
+
 			if (p_entry.State == EDialogState.DISABLED)
 			{
 				m_enabled = false;
@@ -71,7 +73,7 @@ namespace Legacy.Game.MMGUI
 			}
 		}
 
-		public void SetBackFunction(Int32 p_backToId)
+	    public void SetBackFunction(Int32 p_backToId)
 		{
 			m_backToId = p_backToId;
 			m_isBackButton = true;
