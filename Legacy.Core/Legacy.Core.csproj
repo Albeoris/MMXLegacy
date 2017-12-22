@@ -442,6 +442,14 @@
     <Compile Include="Core\MMTime.cs" />
     <Compile Include="Core\Mods\ModController.cs" />
     <Compile Include="Core\MonsterBuffImprisoned.cs" />
+    <Compile Include="Core\NetFramework\BitHelper.cs" />
+    <Compile Include="Core\NetFramework\SortedSet.cs" />
+    <Compile Include="Core\NetFramework\EnumerableHelpers.cs" />
+    <Compile Include="Core\NetFramework\NodeColor.cs" />
+    <Compile Include="Core\NetFramework\SortedSetTreeSubSet.cs" />
+    <Compile Include="Core\NetFramework\SortedSetEqualityComparer.cs" />
+    <Compile Include="Core\NetFramework\TreeRotation.cs" />
+    <Compile Include="Core\NetFramework\TreeWalkPredicate.cs" />
     <Compile Include="Core\NpcInteraction\ChangedCutsceneStateEventArgs.cs" />
     <Compile Include="Core\NpcInteraction\ChangedDialogEventArgs.cs" />
     <Compile Include="Core\NpcInteraction\Conditions\BrokenItemsCondition.cs" />
@@ -960,6 +968,9 @@
       <Project>{c27ed167-8dde-466f-a4d5-cf7bf90c0671}</Project>
       <Name>CsvSerializer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Core\NetFramework\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">

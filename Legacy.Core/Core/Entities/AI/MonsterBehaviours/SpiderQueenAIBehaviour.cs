@@ -1,5 +1,6 @@
 ﻿using System;
 using Legacy.Core.Abilities;
+using Legacy.Core.Configuration;
 using Legacy.Core.Map;
 using Legacy.Core.PartyManagement;
 using Legacy.Core.Pathfinding;
@@ -33,7 +34,7 @@ namespace Legacy.Core.Entities.AI.MonsterBehaviours
 					m_targetSlot = neighborSlot;
 					GridSlot slot = p_grid.GetSlot(m_owner.Position);
 					GridSlot slot2 = p_grid.GetSlot(p_party.Position);
-					Int32 num = AStarHelper<GridSlot>.Calculate(slot, slot2, 10, m_owner, true, null);
+					Int32 num = AStarHelper<GridSlot>.Calculate(slot, slot2, GameConfig.MaxSteps, m_owner, true, null);
 					if (num > 0)
 					{
 						m_owner.DistanceToParty = num;

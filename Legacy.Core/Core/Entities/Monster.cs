@@ -274,7 +274,7 @@ namespace Legacy.Core.Entities
 			get => m_isAggro;
 		    set
 			{
-				if (!m_isAggro)
+				if (m_isAggro != value)
 				{
 					m_isAggro = value;
 					if (m_isAggro)

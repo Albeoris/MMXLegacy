@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Legacy.Core.Abilities;
 using Legacy.Core.Api;
+using Legacy.Core.Configuration;
 using Legacy.Core.Entities.AI.Events;
 using Legacy.Core.Entities.InteractiveObjects;
 using Legacy.Core.EventManagement;
@@ -55,7 +56,7 @@ namespace Legacy.Core.Entities.AI
 			Int32 num;
 			if (m_owner.IsAggro)
 			{
-				num = AStarHelper<GridSlot>.Calculate(slot, slot2, 10, m_owner, true, false, m_canOpenDoors, null);
+				num = AStarHelper<GridSlot>.Calculate(slot, slot2, GameConfig.MaxSteps, m_owner, true, false, m_canOpenDoors, null);
 			}
 			else
 			{
@@ -89,12 +90,17 @@ namespace Legacy.Core.Entities.AI
 			m_owner.CheckAggroRange();
 		}
 
-		internal virtual Boolean CalculatePath(GridSlot p_start, GridSlot p_target, List<GridSlot> p_pathBuffer)
-		{
-			return AStarHelper<GridSlot>.Calculate(p_start, p_target, 10, m_owner, false, p_pathBuffer) > 0;
-		}
+	    internal virtual Boolean CalculatePath(GridSlot p_start, GridSlot p_target, List<GridSlot> p_pathBuffer)
+	    {
+            // Avoid to stack agro monsters due to cast of spell or long obstacles
+            Int32 maxSteps = GameConfig.MaxSteps;
+	        if (m_owner.IsAggro)
+	            maxSteps *= 3;
 
-		protected virtual Boolean DoCastSpell()
+	        return AStarHelper<GridSlot>.Calculate(p_start, p_target, maxSteps, m_owner, false, p_pathBuffer) > 0;
+	    }
+
+	    protected virtual Boolean DoCastSpell()
 		{
 			Boolean result = false;
 			if (CanCastSpell() && CheckSpellCastChance())
@@ -534,7 +540,7 @@ namespace Legacy.Core.Entities.AI
 							m_targetSlot = gridSlot;
 							GridSlot slot = p_grid.GetSlot(m_owner.Position);
 							GridSlot slot2 = p_grid.GetSlot(p_party.Position);
-							Int32 num2 = AStarHelper<GridSlot>.Calculate(slot, slot2, 10, m_owner, true, null);
+							Int32 num2 = AStarHelper<GridSlot>.Calculate(slot, slot2, GameConfig.MaxSteps, m_owner, true, null);
 							if (num2 > 0)
 							{
 								m_owner.DistanceToParty = num2;

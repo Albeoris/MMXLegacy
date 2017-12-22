@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Legacy.Core.Api;
+using Legacy.Core.Configuration;
 using Legacy.Core.Map;
 using Legacy.Core.PartyManagement;
 using Legacy.Core.Pathfinding;
@@ -60,7 +61,7 @@ namespace Legacy.Core.Entities.AI.MonsterBehaviours
 		{
 			if (!p_target.CheckForSummons())
 			{
-				AStarHelper<GridSlot>.Calculate(p_start, p_target, 10, m_owner, false, true, p_pathBuffer);
+				AStarHelper<GridSlot>.Calculate(p_start, p_target, GameConfig.MaxSteps, m_owner, false, true, p_pathBuffer);
 				return p_pathBuffer.Count > 0;
 			}
 			List<GridSlot> list;
@@ -78,7 +79,7 @@ namespace Legacy.Core.Entities.AI.MonsterBehaviours
 			}
 			list.RemoveAll(new Predicate<GridSlot>(FindSlotsWithSummons));
 			list.Sort(new Comparison<GridSlot>(DistSortAsc));
-			AStarHelper<GridSlot>.Calculate(p_start, list[0], 10, m_owner, false, false, p_pathBuffer);
+			AStarHelper<GridSlot>.Calculate(p_start, list[0], GameConfig.MaxSteps, m_owner, false, false, p_pathBuffer);
 			list.Sort(new Comparison<GridSlot>(DistSortAsc));
 			return p_pathBuffer.Count > 0;
 		}

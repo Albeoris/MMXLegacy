@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using Legacy.Core.Api;
+using Legacy.Core.Configuration;
 using Legacy.Core.Entities;
 using Legacy.Core.Entities.InteractiveObjects;
 using Legacy.Core.EventManagement;
@@ -951,7 +952,7 @@ namespace Legacy.Core.Map
 
 		public Int32 CalculateMovablePath(MovingEntity p_controller, Position p_target, List<GridSlot> p_path)
 		{
-			return AStarHelper<GridSlot>.Calculate(GetSlot(p_controller.Position), GetSlot(p_target), 10, p_controller, false, p_path);
+			return AStarHelper<GridSlot>.Calculate(GetSlot(p_controller.Position), GetSlot(p_target), GameConfig.MaxSteps, p_controller, false, p_path);
 		}
 
 	    public Boolean GetPlayerPosition(out Position partyPosition)
