@@ -1,6 +1,9 @@
 # MMXLegacy
 Might and Magic X Rewritten Engine
 
+# Documentation
+Welcome to the our [Wiki](https://github.com/Albeoris/MMXLegacy/wiki)!
+
 # Install
 1. Update the game to the **latest** version.
 2. Update MMXLegacy to the **latest** version.
