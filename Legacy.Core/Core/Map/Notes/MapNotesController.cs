@@ -264,7 +264,6 @@ namespace Legacy.Core.Map.Notes
 	    private const String CyanColor = "[00FFFF]";
         private const String YellowColor = "[FFFF00]";
 	    private const String GreenColor = "[00FF00]";
-	    private const String BlueColor = "[0000FF]";
 	    private const String PurpleColor = "[FF00FF]";
 	    private const String EndColor = "[-]";
 
@@ -292,7 +291,7 @@ namespace Legacy.Core.Map.Notes
 	                    sb.Append(GreenColor);
 	                    break;
 	                case ETier.MASTER:
-	                    sb.Append(BlueColor);
+	                    sb.Append(CyanColor);
 	                    break;
 	                case ETier.GRAND_MASTER:
 	                    sb.Append(PurpleColor);
